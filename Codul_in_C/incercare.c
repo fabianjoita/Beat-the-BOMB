@@ -8,7 +8,7 @@
 
 struct node {
     int dest;
-    int continut_nod_graf_principal;
+    char continut_nod_graf_principal[MAX_LINE_LENGTH];
     struct node* next;
 };
 
@@ -23,6 +23,12 @@ struct Edge {
 struct Graph* createGraph(struct Edge edges[], int num_edges, int num_vertices) {
     struct Graph* graph = (struct Graph*)malloc(sizeof(struct Graph));
 
+     FILE *fisier_continut_quiz = fopen("quiz.txt", "r");
+        if (fisier_continut_quiz == NULL) {
+            fprintf(stderr, "Nu s-a putut deschide fisierul.\n");
+            return 1;
+        }
+
     for (int i = 0; i < num_vertices; i++) {
         graph->head[i] = NULL;
     }
@@ -33,6 +39,13 @@ struct Graph* createGraph(struct Edge edges[], int num_edges, int num_vertices) 
 
         struct node* newnode = (struct node*)malloc(sizeof(struct node));
         newnode->dest = dest;
+
+        char *line;
+        if (fgets(line, sizeof(line), fisier_continut_quiz) != NULL) {
+
+            newnode->continut_nod_graf_principal = atoi(line);
+        }
+
         newnode->next = graph->head[src];
         graph->head[src] = newnode;
 
@@ -73,18 +86,6 @@ int main(void) {
         token = strtok(NULL, ",");
         dest = atoi(token);
 
-        token = strtok(NULL, ",");
-
-        FILE *fisier_continut_quiz = fopen("quiz.txt", "r");
-        if (fisier_continut_quiz == NULL) {
-            fprintf(stderr, "Nu s-a putut deschide fisierul.\n");
-            return 1;
-        }
-
-        if (fgets(continut_nod_graf_principal, sizeof(continut_nod_graf_principal), fisier_continut_quiz) != NULL) {
-            // Nu facem conversie la int deoarece citim deja un șir de caractere
-        }
-
         if (src > num_vertices) num_vertices = src;
         if (dest > num_vertices) num_vertices = dest;
         num_edges++;
@@ -103,18 +104,6 @@ int main(void) {
 
         token = strtok(NULL, ",");
         dest = atoi(token);
-
-        token = strtok(NULL, ",");
-
-        FILE *fisier_continut_quiz = fopen("quiz.txt", "r");
-        if (fisier_continut_quiz == NULL) {
-            fprintf(stderr, "Nu s-a putut deschide fisierul.\n");
-            return 1;
-        }
-
-        if (fgets(continut_nod_graf_principal, sizeof(continut_nod_graf_principal), fisier_continut_quiz) != NULL) {
-            // Nu facem conversie la int deoarece citim deja un șir de caractere
-        }
 
         edges[index].src = src;
         edges[index].dest = dest;
