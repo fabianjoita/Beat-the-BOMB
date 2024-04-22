@@ -20,19 +20,22 @@ struct Edge {
     int src, dest;
 };
 
+    //impreuna cu creearea grafului o sa citim si continutul pentru fiecare nod categorie
+
 struct Graph* createGraph(struct Edge edges[], int num_edges, int num_vertices) {
     struct Graph* graph = (struct Graph*)malloc(sizeof(struct Graph));
 
-     FILE *fisier_continut_quiz = fopen("quiz.txt", "r");
-        if (fisier_continut_quiz == NULL) {
-            fprintf(stderr, "Nu s-a putut deschide fisierul.\n");
-            return 1;
-        }
+    FILE *fisier_continut_quiz = fopen("quiz.txt", "r");
+    if (fisier_continut_quiz == NULL) {
+        fprintf(stderr, "Nu s-a putut deschide fisierul.\n");
+        exit(EXIT_FAILURE);
+    }
 
     for (int i = 0; i < num_vertices; i++) {
         graph->head[i] = NULL;
     }
 
+    char line[MAX_LINE_LENGTH];
     for (int i = 0; i < num_edges; i++) {
         int src = edges[i].src;
         int dest = edges[i].dest;
@@ -40,16 +43,21 @@ struct Graph* createGraph(struct Edge edges[], int num_edges, int num_vertices) 
         struct node* newnode = (struct node*)malloc(sizeof(struct node));
         newnode->dest = dest;
 
-        char *line;
+        // Citim categoria nodului
         if (fgets(line, sizeof(line), fisier_continut_quiz) != NULL) {
+            line[strcspn(line, "\n")] = '\0'; // Eliminăm caracterul newline de la sfârșitul liniei
+            strncpy(newnode->continut_nod_graf_principal, line, sizeof(newnode->continut_nod_graf_principal));
+        }   
 
-            newnode->continut_nod_graf_principal = atoi(line);
+            // Trecem peste liniile de întrebări până la întâlnirea unui rând gol
+        while (fgets(line, sizeof(line), fisier_continut_quiz) != NULL && strcmp(line, "\n") != 0) {
         }
 
         newnode->next = graph->head[src];
         graph->head[src] = newnode;
-
     }
+
+    fclose(fisier_continut_quiz);
     return graph;
 }
 
