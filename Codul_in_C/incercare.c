@@ -8,6 +8,7 @@
 
 struct node_secund {
     int dest;
+    char answer[2];
     char continut_nod_graf_secundar[MAX_LINE_LENGTH];
     struct node_secund* next;
 };
@@ -47,9 +48,17 @@ struct Graph_secund* createGraphSecund(struct Edge edges[], int num_edges, int n
         exit(EXIT_FAILURE);
     }
 
+    FILE *fisier_raspunsuri_intrebari = fopen("input_answer.csv", "r");
+    if (fisier_raspunsuri_intrebari == NULL) {
+        fprintf(stderr, "Failed to open quiz_intrebari.txt.\n");
+        exit(EXIT_FAILURE);
+    }
+
     char line[MAX_LINE_LENGTH];
+    char line_answer[2];
     while (nr_intrebari_utilizate > 0 && fgets(line, sizeof(line), fisier_continut_intrebari) != NULL) {
         nr_intrebari_utilizate--;
+        fgets(line_answer, sizeof(line_answer), fisier_raspunsuri_intrebari);
     }
 
     // Reset head pointers
@@ -69,8 +78,15 @@ struct Graph_secund* createGraphSecund(struct Edge edges[], int num_edges, int n
 
     // Read the question of the first secondary node
     if (fgets(line, sizeof(line), fisier_continut_intrebari) != NULL) {
+        
         line[strcspn(line, "\n")] = '\0'; // Remove the newline character at the end of the line
         strncpy(newnode->continut_nod_graf_secundar, line, sizeof(newnode->continut_nod_graf_secundar));
+
+        //se adauga raspunsul corect pentru fiecare intrebare
+        fgets(line_answer, sizeof(line_answer), fisier_raspunsuri_intrebari);
+        line_answer[strcspn(line_answer, "\n")] = '\0';
+        strncpy(newnode->answer, line_answer, sizeof(newnode->answer));
+
     }
 
     int cnt_edge = 1;
@@ -89,8 +105,14 @@ struct Graph_secund* createGraphSecund(struct Edge edges[], int num_edges, int n
 
         // Read the question of the node
         if (fgets(line, sizeof(line), fisier_continut_intrebari) != NULL) {
+        
             line[strcspn(line, "\n")] = '\0'; // Remove the newline character at the end of the line
             strncpy(newnode_secund->continut_nod_graf_secundar, line, sizeof(newnode_secund->continut_nod_graf_secundar));
+        
+            //se adauga raspunsul corect pentru fiecare intrebare
+            fgets(line_answer, sizeof(line_answer), fisier_raspunsuri_intrebari);
+            line_answer[strcspn(line_answer, "\n")] = '\0';
+            strncpy(newnode->answer, line_answer, sizeof(newnode->answer));
         }
 
         newnode->next = newnode_secund;
@@ -99,6 +121,7 @@ struct Graph_secund* createGraphSecund(struct Edge edges[], int num_edges, int n
     }
 
     fclose(fisier_continut_intrebari);
+    fclose(fisier_raspunsuri_intrebari);
     return graph_secund;
 }
 
@@ -219,5 +242,9 @@ int main(void) {
     printGraph(graph, num_vertices);
     printf("\n");
 
+    //am afisat graful urmeaza sa raspundem corect la intrebari 
+    //intai vom afisa categoria din care facem parte, apoi intrebare si Answer: input utilizator
+    //daca termini de raspuns la intrebari treci mai departe la urmatoarea categorie
+    answerToTheQuestion()
     return 0;
 }
