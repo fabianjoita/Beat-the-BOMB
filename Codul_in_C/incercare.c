@@ -10,6 +10,7 @@ struct node {
     int dest;
     char continut_nod_graf_principal[MAX_LINE_LENGTH];
     struct node* next;
+    struct node_secund* next_secundar; // Adăugăm o legătură către nodurile secundare
 };
 
 struct Graph {
@@ -30,7 +31,8 @@ struct Edge {
     int src, dest;
 };
 
-struct Graph_secund* createGraphSecund(struct Edge edges[], int num_edges, int num_vertices, struct node* node1) {
+// Funcția pentru crearea grafului secundar
+struct Graph_secund* createGraphSecund(struct Edge edges[], int num_edges, int num_vertices, struct node* node1, struct Graph* graph_principal) {
     struct Graph_secund* graph_secund = (struct Graph_secund*)malloc(sizeof(struct Graph_secund));
 
     FILE *fisier_continut_quiz = fopen("quiz_intrebari.txt", "r");
@@ -47,7 +49,7 @@ struct Graph_secund* createGraphSecund(struct Edge edges[], int num_edges, int n
     newnode->dest = 1;
     newnode->next = NULL;
     strcpy(newnode->continut_nod_graf_secundar, "Continutul primului nod secundar.");
-    node1->next = newnode;
+    node1->next_secundar = newnode;
 
     char line[MAX_LINE_LENGTH];
     int cnt_edge = 1;
@@ -55,17 +57,27 @@ struct Graph_secund* createGraphSecund(struct Edge edges[], int num_edges, int n
         int src = cnt_edge;
         int dest = src + 1;
 
-        newnode = (struct node_secund*)malloc(sizeof(struct node_secund));
-        newnode->dest = dest;
+        struct node_secund* newnode_secund = (struct node_secund*)malloc(sizeof(struct node_secund));
+        newnode_secund->dest = dest;
 
         // Citim intrebarea nodului
         if (fgets(line, sizeof(line), fisier_continut_quiz) != NULL) {
             line[strcspn(line, "\n")] = '\0'; // Eliminăm caracterul newline de la sfârșitul liniei
-            strncpy(newnode->continut_nod_graf_secundar, line, sizeof(newnode->continut_nod_graf_secundar));
+            strncpy(newnode_secund->continut_nod_graf_secundar, line, sizeof(newnode_secund->continut_nod_graf_secundar));
         }
 
-        newnode->next = graph_secund->head[src];
-        graph_secund->head[src] = newnode;
+        // Adăugăm nodul secundar în lista corespunzătoare a nodului principal din graful principal
+        struct node* ptr_principal = graph_principal->head[src];
+        while (ptr_principal != NULL) {
+            if (ptr_principal->dest == dest) {
+                ptr_principal->next_secundar = newnode_secund; // Adăugăm nodul secundar la nodul principal
+                break;
+            }
+            ptr_principal = ptr_principal->next;
+        }
+
+        newnode_secund->next = graph_secund->head[src];
+        graph_secund->head[src] = newnode_secund;
         
     }
 
@@ -73,7 +85,7 @@ struct Graph_secund* createGraphSecund(struct Edge edges[], int num_edges, int n
     return graph_secund;
 }
 
-
+// Funcția pentru crearea grafului principal
 struct Graph* createGraph(struct Edge edges[], int num_edges, int num_vertices) {
     struct Graph* graph = (struct Graph*)malloc(sizeof(struct Graph));
 
@@ -99,7 +111,7 @@ struct Graph* createGraph(struct Edge edges[], int num_edges, int num_vertices) 
         if (fgets(line, sizeof(line), fisier_continut_quiz) != NULL) {
             line[strcspn(line, "\n")] = '\0'; // Eliminăm caracterul newline de la sfârșitul liniei
             strncpy(newnode->continut_nod_graf_principal, line, sizeof(newnode->continut_nod_graf_principal));
-        }
+        }   
 
         newnode->next = graph->head[src];
         graph->head[src] = newnode;
@@ -107,13 +119,14 @@ struct Graph* createGraph(struct Edge edges[], int num_edges, int num_vertices) 
         // O sa facem graful secund pt fiecare nod pricipal
         // fiecare nod principal o sa contina 4 intrebari (alte 4 noduri formand un subgraf)   
         struct Edge edges_secund[4]; // muchii pentru graf secundar     
-        struct Graph_secund* graph_secund = createGraphSecund(edges, 4, 5, newnode);
+        struct Graph_secund* graph_secund = createGraphSecund(edges, 4, 5, newnode, graph);
     }
 
     fclose(fisier_continut_quiz);
     return graph;
 }
 
+// Funcția pentru afișarea grafului
 void printGraph(struct Graph* graph, int num_vertices) {
     for (int i = 0; i < num_vertices; i++) {
         struct node* ptr = graph->head[i];
