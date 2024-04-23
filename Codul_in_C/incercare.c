@@ -37,7 +37,7 @@ struct Graph_secund* createGraphSecund(struct Edge edges[], int num_edges, int n
 {
     struct Graph_secund* graph_secund = (struct Graph_secund*)malloc(sizeof(struct Graph_secund));
 
-    FILE *fisier_continut_intrebari = fopen("D:\\Beat the bomb project\\Beat-the-BOMB\\Date_de_intrare-iesire\\quiz_intrebari.txt", "r");
+    FILE *fisier_continut_intrebari = fopen("quiz_intrebari.txt", "r");
     if (fisier_continut_intrebari == NULL) {
         fprintf(stderr, "Nu s-a putut deschide fisierul.\n");
         exit(EXIT_FAILURE);
@@ -45,7 +45,7 @@ struct Graph_secund* createGraphSecund(struct Edge edges[], int num_edges, int n
 
     char line[MAX_LINE_LENGTH];
     while(nr_intrebari_utilizate > 0 && fgets(line, sizeof(line), fisier_continut_intrebari) != NULL) {
-
+        nr_intrebari_utilizate--;
     }
 
     for (int i = 1; i < num_vertices; i++) {
@@ -93,7 +93,7 @@ struct Graph_secund* createGraphSecund(struct Edge edges[], int num_edges, int n
 struct Graph* createGraph(struct Edge edges[], int num_edges, int num_vertices) {
     struct Graph* graph = (struct Graph*)malloc(sizeof(struct Graph));
 
-    FILE *fisier_continut_quiz = fopen("D:\\Beat the bomb project\\Beat-the-BOMB\\Date_de_intrare-iesire\\quiz_categorii.txt", "r");
+    FILE *fisier_continut_quiz = fopen("quiz_categorii.txt", "r");
     if (fisier_continut_quiz == NULL) {
         fprintf(stderr, "Nu s-a putut deschide fisierul.\n");
         exit(EXIT_FAILURE);
@@ -124,7 +124,7 @@ struct Graph* createGraph(struct Edge edges[], int num_edges, int num_vertices) 
         // fiecare nod principal o sa contina 4 intrebari (alte 4 noduri formand un subgraf)   
         struct Edge edges_secund[4]; // muchii pentru graf secundar     
         int nr_intrebari_utilizate = src * 4;
-        struct Graph_secund* graph_secund = createGraphSecund(edges, 4, 5, newnode, graph, nr_intrebari_utilizate);
+        struct Graph_secund* graph_secund = createGraphSecund(edges_secund, 4, 5, newnode, graph, nr_intrebari_utilizate);
     }
 
     fclose(fisier_continut_quiz);
@@ -149,9 +149,9 @@ void printGraph(struct Graph* graph, int num_vertices) {
 
 
 int main(void) {
-    FILE *fisier = fopen("D:\\Beat the bomb project\\Beat-the-BOMB\\Date_de_intrare-iesire\\input1.csv", "r");
+    FILE *fisier = fopen("input1.csv", "r");
     if (fisier == NULL) {
-        fprintf(stderr, "Nu s-a putut deschide fisierul.\n");
+        fprintf(stderr, "Nu s-a putut deschide fisierul .\n");
         return 1;
     }
 
