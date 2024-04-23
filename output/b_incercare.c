@@ -45,7 +45,7 @@ struct Graph_secund* createGraphSecund(struct Edge edges[], int num_edges, int n
 
     char line[MAX_LINE_LENGTH];
     while(nr_intrebari_utilizate > 0 && fgets(line, sizeof(line), fisier_continut_intrebari) != NULL) {
-
+        nr_intrebari_utilizate--;
     }
 
     for (int i = 1; i < num_vertices; i++) {
