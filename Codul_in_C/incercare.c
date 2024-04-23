@@ -6,6 +6,16 @@
 #define MAX_VERTICES_SUBGRAPH 100
 #define MAX_LINE_LENGTH 1000
 
+struct node_secund {
+    int dest;
+    char continut_nod_graf_secundar[MAX_LINE_LENGTH];
+    struct node_secund* next;
+};
+
+struct Graph_secund {
+    struct node_secund* head[MAX_VERTICES_SUBGRAPH];
+};
+
 struct node {
     int dest;
     char continut_nod_graf_principal[MAX_LINE_LENGTH];
@@ -17,28 +27,25 @@ struct Graph {
     struct node* head[MAX_VERTICES_GRAPH];
 };
 
-struct node_secund {
-    int dest;
-    char continut_nod_graf_secundar[MAX_LINE_LENGTH];
-    struct node_secund* next;
-};
-
-struct Graph_secund {
-    struct node_secund* head[MAX_VERTICES_GRAPH];
-};
-
 struct Edge {
     int src, dest;
 };
 
 // Funcția pentru crearea grafului secundar
-struct Graph_secund* createGraphSecund(struct Edge edges[], int num_edges, int num_vertices, struct node* node1, struct Graph* graph_principal) {
+struct Graph_secund* createGraphSecund(struct Edge edges[], int num_edges, int num_vertices, struct node* node1,
+                                         struct Graph* graph_principal, int nr_intrebari_utilizate)
+{
     struct Graph_secund* graph_secund = (struct Graph_secund*)malloc(sizeof(struct Graph_secund));
 
-    FILE *fisier_continut_quiz = fopen("quiz_intrebari.txt", "r");
-    if (fisier_continut_quiz == NULL) {
+    FILE *fisier_continut_intrebari = fopen("D:\\Beat the bomb project\\Beat-the-BOMB\\Date_de_intrare-iesire\\quiz_intrebari.txt", "r");
+    if (fisier_continut_intrebari == NULL) {
         fprintf(stderr, "Nu s-a putut deschide fisierul.\n");
         exit(EXIT_FAILURE);
+    }
+
+    char line[MAX_LINE_LENGTH];
+    while(nr_intrebari_utilizate > 0 && fgets(line, sizeof(line), fisier_continut_intrebari) != NULL) {
+
     }
 
     for (int i = 1; i < num_vertices; i++) {
@@ -48,10 +55,8 @@ struct Graph_secund* createGraphSecund(struct Edge edges[], int num_edges, int n
     struct node_secund* newnode = (struct node_secund*)malloc(sizeof(struct node_secund));
     newnode->dest = 1;
     newnode->next = NULL;
-    strcpy(newnode->continut_nod_graf_secundar, "Continutul primului nod secundar.");
     node1->next_secundar = newnode;
 
-    char line[MAX_LINE_LENGTH];
     int cnt_edge = 1;
     for (int i = 1; i < num_edges; i++) {
         int src = cnt_edge;
@@ -61,7 +66,7 @@ struct Graph_secund* createGraphSecund(struct Edge edges[], int num_edges, int n
         newnode_secund->dest = dest;
 
         // Citim intrebarea nodului
-        if (fgets(line, sizeof(line), fisier_continut_quiz) != NULL) {
+        if (fgets(line, sizeof(line), fisier_continut_intrebari) != NULL) {
             line[strcspn(line, "\n")] = '\0'; // Eliminăm caracterul newline de la sfârșitul liniei
             strncpy(newnode_secund->continut_nod_graf_secundar, line, sizeof(newnode_secund->continut_nod_graf_secundar));
         }
@@ -80,8 +85,7 @@ struct Graph_secund* createGraphSecund(struct Edge edges[], int num_edges, int n
         graph_secund->head[src] = newnode_secund;
         
     }
-
-    fclose(fisier_continut_quiz);
+    
     return graph_secund;
 }
 
@@ -89,7 +93,7 @@ struct Graph_secund* createGraphSecund(struct Edge edges[], int num_edges, int n
 struct Graph* createGraph(struct Edge edges[], int num_edges, int num_vertices) {
     struct Graph* graph = (struct Graph*)malloc(sizeof(struct Graph));
 
-    FILE *fisier_continut_quiz = fopen("quiz_categorii.txt", "r");
+    FILE *fisier_continut_quiz = fopen("D:\\Beat the bomb project\\Beat-the-BOMB\\Date_de_intrare-iesire\\quiz_categorii.txt", "r");
     if (fisier_continut_quiz == NULL) {
         fprintf(stderr, "Nu s-a putut deschide fisierul.\n");
         exit(EXIT_FAILURE);
@@ -119,7 +123,8 @@ struct Graph* createGraph(struct Edge edges[], int num_edges, int num_vertices) 
         // O sa facem graful secund pt fiecare nod pricipal
         // fiecare nod principal o sa contina 4 intrebari (alte 4 noduri formand un subgraf)   
         struct Edge edges_secund[4]; // muchii pentru graf secundar     
-        struct Graph_secund* graph_secund = createGraphSecund(edges, 4, 5, newnode, graph);
+        int nr_intrebari_utilizate = src * 4;
+        struct Graph_secund* graph_secund = createGraphSecund(edges, 4, 5, newnode, graph, nr_intrebari_utilizate);
     }
 
     fclose(fisier_continut_quiz);
@@ -130,16 +135,21 @@ struct Graph* createGraph(struct Edge edges[], int num_edges, int num_vertices) 
 void printGraph(struct Graph* graph, int num_vertices) {
     for (int i = 0; i < num_vertices; i++) {
         struct node* ptr = graph->head[i];
-        while (ptr != NULL) {
-            printf("(%d -> %d) ", i, ptr->dest);
-            ptr = ptr->next;
+        if (ptr != NULL) {
+            printf("Nod principal %d: %s\n", i, ptr->continut_nod_graf_principal);
+            ptr = ptr->next; // Trecem la primul nod secundar
+            while (ptr != NULL) {
+                printf("  - Nod secundar %d: %s\n", ptr->dest, ptr->next_secundar->continut_nod_graf_secundar);
+                ptr = ptr->next;
+            }
+            printf("\n");
         }
-        printf("\n");
     }
 }
 
+
 int main(void) {
-    FILE *fisier = fopen("input1.csv", "r");
+    FILE *fisier = fopen("D:\\Beat the bomb project\\Beat-the-BOMB\\Date_de_intrare-iesire\\input1.csv", "r");
     if (fisier == NULL) {
         fprintf(stderr, "Nu s-a putut deschide fisierul.\n");
         return 1;
@@ -166,7 +176,8 @@ int main(void) {
     }
 
     num_vertices++;
-
+    printf("%d si %d\n", num_edges, num_vertices);
+    
     struct Edge edges[num_edges]; // pentru graf principal
     int index = 0;
 
