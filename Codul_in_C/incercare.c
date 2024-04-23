@@ -36,58 +36,72 @@ struct Graph_secund* createGraphSecund(struct Edge edges[], int num_edges, int n
                                          struct Graph* graph_principal, int nr_intrebari_utilizate)
 {
     struct Graph_secund* graph_secund = (struct Graph_secund*)malloc(sizeof(struct Graph_secund));
+    if (graph_secund == NULL) {
+        fprintf(stderr, "Memory allocation failed for secondary graph.\n");
+        exit(EXIT_FAILURE);
+    }
 
     FILE *fisier_continut_intrebari = fopen("quiz_intrebari.txt", "r");
     if (fisier_continut_intrebari == NULL) {
-        fprintf(stderr, "Nu s-a putut deschide fisierul.\n");
+        fprintf(stderr, "Failed to open quiz_intrebari.txt.\n");
         exit(EXIT_FAILURE);
     }
 
     char line[MAX_LINE_LENGTH];
-    while(nr_intrebari_utilizate > 0 && fgets(line, sizeof(line), fisier_continut_intrebari) != NULL) {
+    while (nr_intrebari_utilizate > 0 && fgets(line, sizeof(line), fisier_continut_intrebari) != NULL) {
         nr_intrebari_utilizate--;
     }
 
-    for (int i = 1; i < num_vertices; i++) {
+    // Reset head pointers
+    for (int i = 0; i < num_vertices; i++) {
         graph_secund->head[i] = NULL;
     }
 
+    // Create the first link: primary node --> secondary node
     struct node_secund* newnode = (struct node_secund*)malloc(sizeof(struct node_secund));
+    if (newnode == NULL) {
+        fprintf(stderr, "Memory allocation failed for secondary node.\n");
+        exit(EXIT_FAILURE);
+    }
     newnode->dest = 1;
     newnode->next = NULL;
     node1->next_secundar = newnode;
 
+    // Read the question of the first secondary node
+    if (fgets(line, sizeof(line), fisier_continut_intrebari) != NULL) {
+        line[strcspn(line, "\n")] = '\0'; // Remove the newline character at the end of the line
+        strncpy(newnode->continut_nod_graf_secundar, line, sizeof(newnode->continut_nod_graf_secundar));
+    }
+
     int cnt_edge = 1;
-    for (int i = 1; i < num_edges; i++) {
+    // Create links between secondary nodes
+    for (int i = 0; i < num_edges; i++) {
         int src = cnt_edge;
         int dest = src + 1;
 
         struct node_secund* newnode_secund = (struct node_secund*)malloc(sizeof(struct node_secund));
+        if (newnode_secund == NULL) {
+            fprintf(stderr, "Memory allocation failed for secondary node.\n");
+            exit(EXIT_FAILURE);
+        }
         newnode_secund->dest = dest;
+        newnode_secund->next = NULL;
 
-        // Citim intrebarea nodului
+        // Read the question of the node
         if (fgets(line, sizeof(line), fisier_continut_intrebari) != NULL) {
-            line[strcspn(line, "\n")] = '\0'; // Eliminăm caracterul newline de la sfârșitul liniei
+            line[strcspn(line, "\n")] = '\0'; // Remove the newline character at the end of the line
             strncpy(newnode_secund->continut_nod_graf_secundar, line, sizeof(newnode_secund->continut_nod_graf_secundar));
         }
 
-        // Adăugăm nodul secundar în lista corespunzătoare a nodului principal din graful principal
-        struct node* ptr_principal = graph_principal->head[src];
-        while (ptr_principal != NULL) {
-            if (ptr_principal->dest == dest) {
-                ptr_principal->next_secundar = newnode_secund; // Adăugăm nodul secundar la nodul principal
-                break;
-            }
-            ptr_principal = ptr_principal->next;
-        }
-
-        newnode_secund->next = graph_secund->head[src];
-        graph_secund->head[src] = newnode_secund;
-        
+        newnode->next = newnode_secund;
+        newnode = newnode_secund; // Ne  mutam la next node
+        cnt_edge++;
     }
-    
+
+    fclose(fisier_continut_intrebari);
     return graph_secund;
 }
+
 
 // Funcția pentru crearea grafului principal
 struct Graph* createGraph(struct Edge edges[], int num_edges, int num_vertices) {
@@ -123,10 +137,10 @@ struct Graph* createGraph(struct Edge edges[], int num_edges, int num_vertices) 
         // O sa facem graful secund pt fiecare nod pricipal
         // fiecare nod principal o sa contina 4 intrebari (alte 4 noduri formand un subgraf)   
         struct Edge edges_secund[4]; // muchii pentru graf secundar     
-        int nr_intrebari_utilizate = src * 4;
-        struct Graph_secund* graph_secund = createGraphSecund(edges_secund, 4, 5, newnode, graph, nr_intrebari_utilizate);
+        int nr_intrebari_utilizate = src * 4 ;
+        struct Graph_secund* graph_secund = createGraphSecund(edges_secund, 3, 4, newnode, graph, nr_intrebari_utilizate);
     }
-
+    
     fclose(fisier_continut_quiz);
     return graph;
 }
@@ -137,11 +151,12 @@ void printGraph(struct Graph* graph, int num_vertices) {
         struct node* ptr = graph->head[i];
         if (ptr != NULL) {
             printf("Nod principal %d: %s\n", i, ptr->continut_nod_graf_principal);
-            ptr = ptr->next; // Trecem la primul nod secundar
-            while (ptr != NULL) {
-                printf("  - Nod secundar %d: %s\n", ptr->dest, ptr->next_secundar->continut_nod_graf_secundar);
-                ptr = ptr->next;
+           struct node_secund* ptrs = ptr->next_secundar;
+            while (ptrs != NULL) {
+                printf("  - Nod secundar %d: %s\n", ptrs->dest, ptrs->continut_nod_graf_secundar);
+                ptrs = ptrs->next;
             }
+             ptr = ptr->next; // Trecem la urmatorul nod principal
             printf("\n");
         }
     }
