@@ -8,7 +8,7 @@
 
 struct node_secund {
     int dest;
-    char answer[2];
+    char answer[3];
     char continut_nod_graf_secundar[MAX_LINE_LENGTH];
     struct node_secund* next;
 };
@@ -48,14 +48,14 @@ struct Graph_secund* createGraphSecund(struct Edge edges[], int num_edges, int n
         exit(EXIT_FAILURE);
     }
 
-    FILE *fisier_raspunsuri_intrebari = fopen("input_answer.csv", "r");
+    FILE *fisier_raspunsuri_intrebari = fopen("input_answer.txt", "r");
     if (fisier_raspunsuri_intrebari == NULL) {
-        fprintf(stderr, "Failed to open quiz_intrebari.txt.\n");
+        fprintf(stderr, "Failed to open input_answer.txt.\n");
         exit(EXIT_FAILURE);
     }
 
     char line[MAX_LINE_LENGTH];
-    char line_answer[2];
+    char line_answer[3];
     while (nr_intrebari_utilizate > 0 && fgets(line, sizeof(line), fisier_continut_intrebari) != NULL) {
         nr_intrebari_utilizate--;
         fgets(line_answer, sizeof(line_answer), fisier_raspunsuri_intrebari);
@@ -112,7 +112,7 @@ struct Graph_secund* createGraphSecund(struct Edge edges[], int num_edges, int n
             //se adauga raspunsul corect pentru fiecare intrebare
             fgets(line_answer, sizeof(line_answer), fisier_raspunsuri_intrebari);
             line_answer[strcspn(line_answer, "\n")] = '\0';
-            strncpy(newnode->answer, line_answer, sizeof(newnode->answer));
+            strncpy(newnode_secund->answer, line_answer, sizeof(newnode_secund->answer));
         }
 
         newnode->next = newnode_secund;
@@ -176,7 +176,7 @@ void printGraph(struct Graph* graph, int num_vertices) {
             printf("Nod principal %d: %s\n", i, ptr->continut_nod_graf_principal);
            struct node_secund* ptrs = ptr->next_secundar;
             while (ptrs != NULL) {
-                printf("  - Nod secundar %d: %s\n", ptrs->dest, ptrs->continut_nod_graf_secundar);
+                printf("  - Nod secundar %d: %s\n answer:%s\n", ptrs->dest, ptrs->continut_nod_graf_secundar, ptrs->answer);
                 ptrs = ptrs->next;
             }
              ptr = ptr->next; // Trecem la urmatorul nod principal
@@ -185,6 +185,44 @@ void printGraph(struct Graph* graph, int num_vertices) {
     }
 }
 
+void answerToTheQuestion(struct Graph* graph, struct Edge edges[], int num_edges, int num_vertices) {
+
+    int number_of_lives = 3;
+    int score = 0; //daca raspunzi corect la o intrebare, scorul creste cu 100
+
+    for (int i = 0; i < num_vertices; i++) {
+
+        struct node* ptr = graph->head[i];
+        if (ptr != NULL) {
+
+            printf("Nod principal %d: %s\n", i, ptr->continut_nod_graf_principal);
+            struct node_secund* ptrs = ptr->next_secundar;
+
+            while (ptrs != NULL) {
+                printf("  - Nod secundar %d: %s\n", ptrs->dest, ptrs->continut_nod_graf_secundar);
+                
+                char answer_utilizator[2];
+                printf("Answer with true(T)/false(F) : \n");
+                scanf("%s", answer_utilizator);
+                //printf("%s \n"ptrs->answer);
+                if(strcmp(ptrs->answer ,answer_utilizator) == 0) {
+                    score += 100;
+                    printf("\nBravo! Scorul tau este: %d\n\n", score);
+                }
+                else {
+                    number_of_lives --;
+                    printf("\nAi gresit! Mai ai %d vieti.\n\n", number_of_lives);
+
+                }
+                
+                
+                ptrs = ptrs->next;
+            }
+             ptr = ptr->next; // Trecem la urmatorul nod principal
+            printf("\n");
+        }    
+    }
+}
 
 int main(void) {
     FILE *fisier = fopen("input1.csv", "r");
@@ -238,13 +276,14 @@ int main(void) {
 
     struct Graph* graph = createGraph(edges, num_edges, num_vertices);
 
-    printf("Graful:\n");
+    //--------------------------afisare necesara pt a vedea structura corecta a datelor
+    //printf("Graful:\n");
     printGraph(graph, num_vertices);
     printf("\n");
 
     //am afisat graful urmeaza sa raspundem corect la intrebari 
     //intai vom afisa categoria din care facem parte, apoi intrebare si Answer: input utilizator
     //daca termini de raspuns la intrebari treci mai departe la urmatoarea categorie
-    answerToTheQuestion()
+    answerToTheQuestion(graph, edges, num_edges, num_vertices);
     return 0;
 }
