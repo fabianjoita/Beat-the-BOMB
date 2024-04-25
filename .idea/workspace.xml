@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="CMakePresetLoader">{
+  &quot;useNewFormat&quot;: true
+}</component>
+  <component name="CMakeReloadState">
+    <option name="reloaded" value="true" />
+  </component>
+  <component name="CMakeRunConfigurationManager">
+    <generated>
+      <config projectName="Beat-the-BOMB" targetName="raylib" />
+      <config projectName="Beat-the-BOMB" targetName="Beat-the-BOMB" />
+      <config projectName="Beat-the-BOMB" targetName="BEAT_THE_BOMB" />
+      <config projectName="Beat-the-BOMB" targetName="update_mappings" />
+      <config projectName="Beat-the-BOMB" targetName="glfw" />
+    </generated>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8a2fa1f4-c316-4686-ad1c-a32ef24e9bba" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Quiz Module 5.docx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/cache-v2-07494afc9b945d2cdb80.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/cmakeFiles-v1-f59e9f45b1a02a47c502.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-bdaf89d07aaccd4d9b8c.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/directory-.-Debug-d0094a50bb2071803777.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/directory-_deps.raylib-build-Debug-3b07fda7c44a1cc3f484.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/directory-_deps.raylib-build.raylib-Debug-552f6d5df11d89e56ee0.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/directory-_deps.raylib-build.raylib.external.glfw-Debug-c47ebf252375fab437d0.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/directory-_deps.raylib-build.raylib.external.glfw.src-Debug-aba5195d07495b7ecdc1.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/index-2024-04-25T12-11-55-0168.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-Beat-the-BOMB-Debug-10257d838f9cbea95372.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-glfw-Debug-29ec5a5d62c87f981b28.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-raylib-Debug-f6605c6c6905232ae1f9.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-update_mappings-Debug-747aba60132a79f24387.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/toolchains-v1-e969dc158448fb264db3.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/Beat-the-BOMB.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/CPackConfig.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/CPackSourceConfig.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/CTestTestfile.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/cmake_install.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/raudio.c.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/rcore.c.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/rmodels.c.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/rshapes.c.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/rtext.c.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/rtextures.c.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/utils.c.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/CTestTestfile.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/cmake_install.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/cmake_install.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/context.c.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/egl_context.c.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/init.c.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/input.c.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/monitor.c.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_init.c.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_joystick.c.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_monitor.c.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_window.c.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/platform.c.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/vulkan.c.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/wgl_context.c.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_init.c.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_joystick.c.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_module.c.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_monitor.c.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_thread.c.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_time.c.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_window.c.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/window.c.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/cmake_install.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/glfw3.pc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/glfw3Config.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/glfw3ConfigVersion.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/libglfw3.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/include/raylib.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/include/raymath.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/include/rlgl.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/libraylib.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/raylib-config-version.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/raylib.pc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/CMakeFiles/raylib-populate-complete" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-done" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-install" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-test" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/build.ninja" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/compile_commands.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/input1.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/input_answer.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/quiz_categorii.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/quiz_intrebari.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/BEAT_THE_BOMB.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/editor.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.28.1/CMakeDetermineCompilerABI_C.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.28.1/CMakeDetermineCompilerABI_C.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.28.1/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.28.1/CMakeDetermineCompilerABI_CXX.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.28.1/CompilerIdC/a.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.28.1/CompilerIdC/a.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.28.1/CompilerIdCXX/a.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.28.1/CompilerIdCXX/a.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeConfigureLog.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeConfigureLog.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-src/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-src/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/.ninja_log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/CMakeCache.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/CMakeFiles/TargetDirectories.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/CMakeFiles/raylib-populate.dir/Labels.json" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/CMakeFiles/raylib-populate.dir/Labels.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/CMakeFiles/raylib-populate.dir/Labels.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/CMakeFiles/raylib-populate.dir/Labels.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/CMakeFiles/rules.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/CMakeFiles/rules.ninja" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/build.ninja" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/cmake_install.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/download-raylib-populate.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/download-raylib-populate.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/extract-raylib-populate.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/extract-raylib-populate.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-urlinfo.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-urlinfo.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/tmp/raylib-populate-mkdirs.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/tmp/raylib-populate-mkdirs.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core_basic_window.c" beforeDir="false" afterPath="$PROJECT_DIR$/core_basic_window.c" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/core_basic_window.c" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="ProjectApplicationVersion">
+    <option name="ide" value="CLion" />
+    <option name="majorVersion" value="2024" />
+    <option name="minorVersion" value="1" />
+    <option name="productBranch" value="Classic" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2faa24619Pep5qdIcl4e6XWGTw4" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "CMake Application.BEAT_THE_BOMB.executor": "Run",
+    "CMake Application.Beat-the-BOMB.executor": "Debug",
+    "CMake Debug.Beat-the-BOMB.executor": "Debug",
+    "RunOnceActivity.RadMigrateCodeStyle": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "CLionFabi",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/FABIAN/CLionProjects/Beat-the-BOMB",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\FABIAN\CLionProjects\Beat-the-BOMB" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\FABIAN\CLionProjects\Beat-the-BOMB\cmake-build-debug" />
+      <recent name="C:\Users\FABIAN\CLionProjects\BEAT_THE_BOMB\Beat-the-BOMB" />
+    </key>
+  </component>
+  <component name="RunManager" selected="CMake Application.Beat-the-BOMB">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Beat-the-BOMB" type="CMakeListConfigurationType" factoryName="CMakeListConfigurationFactory">
+      <method v="2" />
+    </configuration>
+    <configuration name="Beat-the-BOMB" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Beat-the-BOMB" TARGET_NAME="Beat-the-BOMB" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Beat-the-BOMB" RUN_TARGET_NAME="Beat-the-BOMB">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="CMake Application.Beat-the-BOMB" />
+      <item itemvalue="CMake Debug.Beat-the-BOMB" />
+    </list>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8a2fa1f4-c316-4686-ad1c-a32ef24e9bba" name="Changes" comment="" />
+      <created>1714041434781</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1714041434781</updated>
+      <workItem from="1714041437150" duration="457000" />
+      <workItem from="1714041918433" duration="463000" />
+      <workItem from="1714043108236" duration="262000" />
+      <workItem from="1714043495751" duration="565000" />
+      <workItem from="1714044442183" duration="2972000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VCPKGProject">
+    <isAutomaticCheckingOnLaunch value="false" />
+    <isAutomaticFoundErrors value="true" />
+    <isAutomaticReloadCMake value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+</project>
