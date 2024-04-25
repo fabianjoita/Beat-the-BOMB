@@ -1,4 +1,4 @@
-//
+//graph.c
 // Created by FABIAN on 4/25/2024.
 //
 #include <stdio.h>
@@ -8,6 +8,7 @@
 #define MAX_VERTICES_GRAPH 100
 #define MAX_VERTICES_SUBGRAPH 100
 #define MAX_LINE_LENGTH 1000
+
 
 struct node_secund {
     int dest;
@@ -187,3 +188,4 @@ void printGraph(struct Graph* graph, int num_vertices) {
         }
     }
 }
+
