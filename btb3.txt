@@ -1,0 +1,435 @@
+#include "raylib.h"
+#include <stdlib.h> // For random number generation
+#include <time.h>   // For time function
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_VERTICES_GRAPH 100
+#define MAX_VERTICES_SUBGRAPH 100
+#define MAX_LINE_LENGTH 1000
+
+struct node_secund {
+    int dest;
+    char answer[3];
+    char continut_nod_graf_secundar[MAX_LINE_LENGTH];
+    struct node_secund* next;
+};
+
+struct Graph_secund {
+    struct node_secund* head[MAX_VERTICES_SUBGRAPH];
+};
+
+struct node {
+    int dest;
+    char continut_nod_graf_principal[MAX_LINE_LENGTH];
+    struct node* next;
+    struct node_secund* next_secundar; // Adăugăm o legătură către nodurile secundare
+};
+
+struct Graph {
+    struct node* head[MAX_VERTICES_GRAPH];
+};
+
+struct Edge {
+    int src, dest;
+};
+
+
+// Funcția pentru crearea grafului secundar
+struct Graph_secund* createGraphSecund(struct Edge edges[], int num_edges, int num_vertices, struct node* node1,
+                                       struct Graph* graph_principal, int nr_intrebari_utilizate)
+{
+    struct Graph_secund* graph_secund = (struct Graph_secund*)malloc(sizeof(struct Graph_secund));
+    if (graph_secund == NULL) {
+        fprintf(stderr, "Memory allocation failed for secondary graph.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    FILE *fisier_continut_intrebari = fopen("quiz_intrebari.txt", "r");
+    if (fisier_continut_intrebari == NULL) {
+        fprintf(stderr, "Failed to open quiz_intrebari.txt.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    FILE *fisier_raspunsuri_intrebari = fopen("input_answer.txt", "r");
+    if (fisier_raspunsuri_intrebari == NULL) {
+        fprintf(stderr, "Failed to open input_answer.txt.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    char line[MAX_LINE_LENGTH];
+    char line_answer[3];
+    while (nr_intrebari_utilizate > 0 && fgets(line, sizeof(line), fisier_continut_intrebari) != NULL) {
+        nr_intrebari_utilizate--;
+        fgets(line_answer, sizeof(line_answer), fisier_raspunsuri_intrebari);
+    }
+
+    // Reset head pointers
+    for (int i = 0; i < num_vertices; i++) {
+        graph_secund->head[i] = NULL;
+    }
+
+    // Create the first link: primary node --> secondary node
+    struct node_secund* newnode = (struct node_secund*)malloc(sizeof(struct node_secund));
+    if (newnode == NULL) {
+        fprintf(stderr, "Memory allocation failed for secondary node.\n");
+        exit(EXIT_FAILURE);
+    }
+    newnode->dest = 1;
+    newnode->next = NULL;
+    node1->next_secundar = newnode;
+
+    // Read the question of the first secondary node
+    if (fgets(line, sizeof(line), fisier_continut_intrebari) != NULL) {
+
+        line[strcspn(line, "\n")] = '\0'; // Remove the newline character at the end of the line
+        strncpy(newnode->continut_nod_graf_secundar, line, sizeof(newnode->continut_nod_graf_secundar));
+
+        //se adauga raspunsul corect pentru fiecare intrebare
+        fgets(line_answer, sizeof(line_answer), fisier_raspunsuri_intrebari);
+        line_answer[strcspn(line_answer, "\n")] = '\0';
+        strncpy(newnode->answer, line_answer, sizeof(newnode->answer));
+
+    }
+
+    int cnt_edge = 1;
+    // Create links between secondary nodes
+    for (int i = 0; i < num_edges; i++) {
+        int src = cnt_edge;
+        int dest = src + 1;
+
+        struct node_secund* newnode_secund = (struct node_secund*)malloc(sizeof(struct node_secund));
+        if (newnode_secund == NULL) {
+            fprintf(stderr, "Memory allocation failed for secondary node.\n");
+            exit(EXIT_FAILURE);
+        }
+        newnode_secund->dest = dest;
+        newnode_secund->next = NULL;
+
+        // Read the question of the node
+        if (fgets(line, sizeof(line), fisier_continut_intrebari) != NULL) {
+
+            line[strcspn(line, "\n")] = '\0'; // Remove the newline character at the end of the line
+            strncpy(newnode_secund->continut_nod_graf_secundar, line, sizeof(newnode_secund->continut_nod_graf_secundar));
+
+            //se adauga raspunsul corect pentru fiecare intrebare
+            fgets(line_answer, sizeof(line_answer), fisier_raspunsuri_intrebari);
+            line_answer[strcspn(line_answer, "\n")] = '\0';
+            strncpy(newnode_secund->answer, line_answer, sizeof(newnode_secund->answer));
+        }
+
+        newnode->next = newnode_secund;
+        newnode = newnode_secund; // Ne  mutam la next node
+        cnt_edge++;
+    }
+
+    fclose(fisier_continut_intrebari);
+    fclose(fisier_raspunsuri_intrebari);
+    return graph_secund;
+}
+
+
+// Funcția pentru crearea grafului principal
+struct Graph* createGraph(struct Edge edges[], int num_edges, int num_vertices) {
+    struct Graph* graph = (struct Graph*)malloc(sizeof(struct Graph));
+
+    FILE *fisier_continut_quiz = fopen("quiz_categorii.txt", "r");
+    if (fisier_continut_quiz == NULL) {
+        fprintf(stderr, "Nu s-a putut deschide fisierul.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    for (int i = 0; i < num_vertices; i++) {
+        graph->head[i] = NULL;
+    }
+
+    char line[MAX_LINE_LENGTH];
+    for (int i = 0; i < num_edges; i++) {
+        int src = edges[i].src;
+        int dest = edges[i].dest;
+
+        struct node* newnode = (struct node*)malloc(sizeof(struct node));
+        newnode->dest = dest;
+
+        // Citim categoria nodului
+        if (fgets(line, sizeof(line), fisier_continut_quiz) != NULL) {
+            line[strcspn(line, "\n")] = '\0'; // Eliminăm caracterul newline de la sfârșitul liniei
+            strncpy(newnode->continut_nod_graf_principal, line, sizeof(newnode->continut_nod_graf_principal));
+        }
+
+        newnode->next = graph->head[src];
+        graph->head[src] = newnode;
+
+        // O sa facem graful secund pt fiecare nod pricipal
+        // fiecare nod principal o sa contina 4 intrebari (alte 4 noduri formand un subgraf)
+        struct Edge edges_secund[4]; // muchii pentru graf secundar
+        int nr_intrebari_utilizate = src * 4 ;
+        struct Graph_secund* graph_secund = createGraphSecund(edges_secund, 3, 4, newnode, graph, nr_intrebari_utilizate);
+    }
+
+    fclose(fisier_continut_quiz);
+    return graph;
+}
+
+int main(void) {
+
+    FILE *fisier = fopen("input1.csv", "r");
+    if (fisier == NULL) {
+        fprintf(stderr, "Nu s-a putut deschide fisierul .\n");
+        return 1;
+    }
+
+    int src, dest;
+    char continut_nod_graf_principal[1000];
+    int num_vertices = 0;
+    int num_edges = 0;
+
+    char line[MAX_LINE_LENGTH];
+    char *token;
+
+    while (fgets(line, MAX_LINE_LENGTH, fisier) != NULL) {
+        token = strtok(line, ",");
+        src = atoi(token);
+
+        token = strtok(NULL, ",");
+        dest = atoi(token);
+
+        if (src > num_vertices) num_vertices = src;
+        if (dest > num_vertices) num_vertices = dest;
+        num_edges++;
+    }
+
+    num_vertices++;
+    printf("%d si %d\n", num_edges, num_vertices);
+
+    struct Edge edges[num_edges]; // pentru graf principal
+    int index = 0;
+
+    rewind(fisier);
+
+    // pentru graful principal
+    while (fgets(line, MAX_LINE_LENGTH, fisier) != NULL) {
+        token = strtok(line, ",");
+        src = atoi(token);
+
+        token = strtok(NULL, ",");
+        dest = atoi(token);
+
+        edges[index].src = src;
+        edges[index].dest = dest;
+        index++;
+    }
+
+    fclose(fisier);
+
+    struct Graph* graph = createGraph(edges, num_edges, num_vertices);
+
+
+
+
+    // ---------------------------------------------------------------------------------------------------
+
+    // Initialization
+    const int screenWidth = 1500;
+    const int screenHeight = 1000;
+    InitWindow(screenWidth, screenHeight, "Loading Bar Timer Example");
+    int i=0;
+
+    int math;
+    // Variables
+    float rectWidth = 300, rectHeight = 300;
+    float rectPosX = (screenWidth - rectWidth) / 2;
+    float rectPosY = (screenHeight - rectHeight - 50) / 2;
+    char mathExpression[50];
+
+
+    char userInput[10] = ""; // Array to store user input
+    int inputIndex = 0; // Current index for user input
+    bool inputSubmitted = false; // Flag to track if input has been submitted
+    bool answerCorrect = false; // Flag to track if the answer is correct
+
+    // Loading bar
+    float barWidth = 600;
+    float barHeight = 20;
+    float barPosX = (screenWidth - barWidth) / 2;
+    float barPosY = screenHeight - barHeight - 50;
+    float duration = 10.0f; // Timer duration in seconds
+    float startTime = GetTime();
+    float elapsedTime = 0.0f;
+    bool stopTimer = false; // Flag to stop the timer
+    bool gameStarted = false; // Flag to track if the game has started
+    bool gameOver = false;
+    int sum;
+    struct node* ptr = graph->head[0];
+    struct node_secund* ptrs = ptr->next_secundar;
+    // Main game loop
+    while (!WindowShouldClose()) {
+
+        if (!gameStarted) {
+            if (IsKeyPressed(KEY_SPACE)) {
+                gameStarted = true; // Start the game when space is pressed
+                gameOver = false;
+                stopTimer = false; // Reset stopTimer flag
+                inputIndex = 0; // Reset input index
+                userInput[0] = '\0'; // Reset user input
+                answerCorrect = false;
+                math=0;
+
+                sprintf(mathExpression, "%s",ptrs->continut_nod_graf_secundar);
+                ptrs = ptrs->next;
+                // Reset the timer
+                startTime = GetTime();
+                elapsedTime = 0.0f;
+            }
+        } else {
+
+
+            // Update timer and check for game over condition
+            if (!stopTimer) {
+                float currentTime = GetTime();
+                elapsedTime = currentTime - startTime;
+                float progress = elapsedTime / duration;
+
+                if (elapsedTime >= duration || i>num_vertices) {
+                    stopTimer = true; // End the timer when the duration is reached
+                }
+
+
+                // Check for user input
+                int keyPressed = GetCharPressed();
+                // am pus asa ca voiam sa pun T/F dar am lasat deocamdata, puneti doar 0 ca raspuns
+                if (keyPressed == 48 || keyPressed == 57 && inputIndex < sizeof(userInput) - 1 && !inputSubmitted) {
+                    // Add the inputted digit to the user input array
+                    userInput[inputIndex++] = (char)keyPressed;
+                    userInput[inputIndex] = '\0'; // Null-terminate the string
+                } else if (IsKeyPressed(KEY_BACKSPACE) && inputIndex > 0 && !inputSubmitted) {
+                    // Handle backspace input
+                    inputIndex--;
+                    userInput[inputIndex] = '\0'; // Null-terminate the string
+                } else if (IsKeyPressed(KEY_ENTER) && !inputSubmitted) {
+                    // Handle enter key submission
+                    inputSubmitted = true;
+                    int userAnswer = atoi(userInput); // Convert user input to integer
+                    answerCorrect = (userAnswer == sum); // Check if the answer is correct
+                    math++;
+
+
+
+                    if (answerCorrect) {
+                        // Recover 5 seconds from the timer if the answer is correct
+                        if(elapsedTime>5){
+                            elapsedTime -= 5.0f;
+                            startTime = currentTime - elapsedTime;
+                        }
+                        else{
+                            elapsedTime= 0;
+                            startTime = currentTime - elapsedTime;
+                        }
+
+
+                        // Generate a new math expression
+
+
+                        if(ptrs != NULL) {
+                            sprintf(mathExpression, "%s", ptrs->continut_nod_graf_secundar);
+                            ptrs = ptrs->next;
+                        }
+                        else {
+                            ptr = ptr->next;
+                            ptrs = ptr->next_secundar;
+                            sprintf(mathExpression, "%s", ptrs->continut_nod_graf_secundar);
+                            i++;
+                        }
+
+
+
+                        // Reset user input
+                        inputIndex = 0;
+                        userInput[0] = '\0';
+                        inputSubmitted = false;
+                    }
+                }
+            }
+        }
+
+        // Draw
+        BeginDrawing();
+        ClearBackground(GRAY);
+
+        if (!gameStarted && !gameOver) {
+            // Display message to press Space to start the game
+            DrawText("Press SPACE to start", (screenWidth - MeasureText("Press SPACE to start", 40)) / 2, screenHeight / 2, 40, BLACK);
+        } else {
+
+
+            // Draw rectangles and loading bar
+            //DrawRectangle(rectPosX, rectPosY, rectWidth, rectHeight, GRAY);
+            // DrawRectangleLinesEx((Rectangle){rectPosX, rectPosY, rectWidth, rectHeight}, 5, BLACK);
+            //DrawRectangle((screenWidth - 200) / 2, (screenHeight - 100) / 2 - 100, 200, 50, YELLOW);
+            // DrawRectangleLinesEx((Rectangle){(screenWidth - 200) / 2, (screenHeight - 100) / 2 - 100, 200, 50}, 5, ORANGE);
+            //DrawRectangle((screenWidth - 130) / 2, (screenHeight - 100) / 2, 130, 150, BLACK);
+
+            // for (int row = 0; row < 3; row++) {
+            //for (int col = 0; col < 3; col++) {
+            //float squareWidth = 130 / 3;
+            //float squareHeight = 150 / 3;
+            //float squarePosX = (screenWidth - 130) / 2 + col * squareWidth;
+            // float squarePosY = (screenHeight - 100) / 2 + row * squareHeight;
+
+            //DrawRectangle(squarePosX, squarePosY, squareWidth, squareHeight, DARKGRAY);
+            //DrawRectangleLinesEx((Rectangle){squarePosX, squarePosY, squareWidth, squareHeight}, 3, BLACK);
+            //}
+            //}
+
+            // Draw math expression and user input
+            DrawText(mathExpression, (screenWidth - MeasureText(mathExpression, 20)) / 2, (screenHeight - 100) / 2 - 100 + 15, 20, BLACK);
+            DrawText(userInput, (screenWidth - MeasureText(userInput, 20)) / 2  , (screenHeight - 100) / 2 - 100 + 50, 20, BLUE);
+
+            // Display feedback if the input has been submitted
+
+            if(math!=0 && !answerCorrect)
+                DrawText("Incorrect!", (screenWidth - MeasureText("Incorrect!", 20)) / 2, (screenHeight - 100) / 2 - 100 + 50, 20, RED);
+
+            // Draw loading bar if the game is not over
+            if (!stopTimer) {
+                float progress = elapsedTime / duration;
+                float filledWidth = barWidth * progress;
+
+                DrawRectangle(barPosX, barPosY, barWidth, barHeight, LIGHTGRAY);
+                DrawRectangle(barPosX, barPosY, filledWidth, barHeight, RED);
+
+                char counterText[20];
+                sprintf(counterText, "%.2f s", elapsedTime);
+                int counterTextWidth = MeasureText(counterText, 20);
+                DrawText(counterText, barPosX + (barWidth - counterTextWidth) / 2, barPosY + barHeight + 10, 20, BLACK);
+            } else if(stopTimer==1 && i<=num_vertices){
+                // Display "Game Over" when the timer stops
+                if (stopTimer && (!inputSubmitted || !answerCorrect)) {
+                    DrawText("Game Over", (screenWidth - MeasureText("Game Over", 40)) / 2, screenHeight / 2, 40, RED);
+                    DrawText("Press SPACE to restart", (screenWidth - MeasureText("Press SPACE to restart", 20)) / 2, screenHeight / 2 + 150, 20, BLACK);
+                    gameStarted=false;
+                    gameOver=true;
+                    i=0;
+                    ptr = graph->head[0];
+                    ptrs = ptr->next_secundar;
+                }
+            }
+            else if(i>num_vertices && stopTimer==1){
+                DrawText("You WIN!", (screenWidth - MeasureText("Game Over", 40)) / 2, screenHeight / 2, 40, GREEN);
+                gameStarted=false;
+                gameOver=true;
+                DrawText("Press SPACE to restart", (screenWidth - MeasureText("Press SPACE to restart", 20)) / 2, screenHeight / 2 + 150, 20, BLACK);
+                i=0;
+                ptr = graph->head[0];
+                ptrs = ptr->next_secundar;
+            }
+        }
+
+        EndDrawing();
+    }
+
+    // Cleanup and close window
+    CloseWindow();
+
+    return 0;
+}

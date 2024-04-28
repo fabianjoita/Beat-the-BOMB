@@ -1,0 +1,234 @@
+#include "raylib.h"
+#include <stdlib.h> // For random number generation
+#include <time.h>   // For time function
+#include <stdio.h>
+
+int main(void) {
+    // Initialization
+    const int screenWidth = 1000;
+    const int screenHeight = 600;
+    InitWindow(screenWidth, screenHeight, "Loading Bar Timer Example");
+    int i=0;
+    int valori[10][2];
+    
+    valori[0][0] = 1;
+    valori[0][1] = 2;
+    valori[1][0] = 3;
+    valori[1][1] = 4;
+    valori[2][0] = 5;
+    valori[2][1] = 2;
+    valori[3][0] = 3;
+    valori[3][1] = 1;
+    valori[4][0] = 4;
+    valori[4][1] = 2;
+    valori[5][0] = 6;
+    valori[5][1] = 2;
+    valori[6][0] = 1;
+    valori[6][1] = 2;
+    valori[7][0] = 2;
+    valori[7][1] = 4;
+    valori[8][0] = 5;
+    valori[8][1] = 1;
+    valori[9][0] = 2;
+    valori[9][1] = 5;
+    
+    int num1;
+    int num2;
+    int math;
+    // Variables
+    float rectWidth = 300, rectHeight = 300;
+    float rectPosX = (screenWidth - rectWidth) / 2;
+    float rectPosY = (screenHeight - rectHeight - 50) / 2;
+    char mathExpression[50];
+    sprintf(mathExpression, "%d + %d =", num1, num2);
+
+    char userInput[10] = ""; // Array to store user input
+    int inputIndex = 0; // Current index for user input
+    bool inputSubmitted = false; // Flag to track if input has been submitted
+    bool answerCorrect = false; // Flag to track if the answer is correct
+
+    // Loading bar
+    float barWidth = 600;
+    float barHeight = 20;
+    float barPosX = (screenWidth - barWidth) / 2;
+    float barPosY = screenHeight - barHeight - 50;
+    float duration = 10.0f; // Timer duration in seconds
+    float startTime = GetTime();
+    float elapsedTime = 0.0f;
+    bool stopTimer = false; // Flag to stop the timer
+    bool gameStarted = false; // Flag to track if the game has started
+    bool gameOver = false;
+    int sum;
+    // Main game loop
+    while (!WindowShouldClose()) {
+        
+        if (!gameStarted) {
+            if (IsKeyPressed(KEY_SPACE)) {
+                gameStarted = true; // Start the game when space is pressed
+                gameOver = false;
+                stopTimer = false; // Reset stopTimer flag
+                inputIndex = 0; // Reset input index
+                userInput[0] = '\0'; // Reset user input
+                answerCorrect = false;
+                math=0;
+                
+                num1=valori[i][0];
+                num2=valori[i][1];
+                i++;
+                
+                sum = num1 + num2;
+                sprintf(mathExpression, "%d + %d =", num1, num2);
+                
+                // Reset the timer
+                startTime = GetTime();
+                elapsedTime = 0.0f;
+            }
+        } else {
+            
+        
+        // Update timer and check for game over condition
+        if (!stopTimer) {
+            float currentTime = GetTime();
+            elapsedTime = currentTime - startTime;
+            float progress = elapsedTime / duration;
+
+            if (elapsedTime >= duration || i>10) {
+                stopTimer = true; // End the timer when the duration is reached
+            }
+            
+
+            // Check for user input
+            int keyPressed = GetCharPressed();
+            if (keyPressed >= 48 && keyPressed <= 57 && inputIndex < sizeof(userInput) - 1 && !inputSubmitted) {
+                // Add the inputted digit to the user input array
+                userInput[inputIndex++] = (char)keyPressed;
+                userInput[inputIndex] = '\0'; // Null-terminate the string
+            } else if (IsKeyPressed(KEY_BACKSPACE) && inputIndex > 0 && !inputSubmitted) {
+                // Handle backspace input
+                inputIndex--;
+                userInput[inputIndex] = '\0'; // Null-terminate the string
+            } else if (IsKeyPressed(KEY_ENTER) && !inputSubmitted) {
+                // Handle enter key submission
+                inputSubmitted = true;
+                int userAnswer = atoi(userInput); // Convert user input to integer
+                answerCorrect = (userAnswer == sum); // Check if the answer is correct
+                math++;
+                
+
+
+                if (answerCorrect) {
+                    // Recover 5 seconds from the timer if the answer is correct
+                    if(elapsedTime>5){
+                        elapsedTime -= 5.0f;
+                        startTime = currentTime - elapsedTime;
+                    }
+                       else{
+                           elapsedTime= 0;
+                        startTime = currentTime - elapsedTime;
+                       }
+                           
+                    
+                    // Generate a new math expression
+                    num1=valori[i][0];
+                    num2=valori[i][1];
+                    i++;
+                    if(num1==0 && num2==0)
+                        sprintf(mathExpression, "-----");
+                    else 
+                        sprintf(mathExpression, "%d + %d =", num1, num2);
+                    sum = num1 + num2;
+                    
+                    
+                    // Reset user input
+                    inputIndex = 0;
+                    userInput[0] = '\0';
+                    inputSubmitted = false;
+                } else {
+                    // Incorrect answer, allow user to submit a new answer
+                   
+                    inputIndex = 0;
+                    userInput[0] = '\0';
+                    inputSubmitted = false;
+                    
+                }
+            }
+        }
+       }
+
+        // Draw
+        BeginDrawing();
+        ClearBackground(RAYWHITE);
+
+        if (!gameStarted && !gameOver) {
+            // Display message to press Space to start the game
+            DrawText("Press SPACE to start", (screenWidth - MeasureText("Press SPACE to start", 40)) / 2, screenHeight / 2, 40, BLACK);
+        } else {
+
+
+        // Draw rectangles and loading bar
+        DrawRectangle(rectPosX, rectPosY, rectWidth, rectHeight, GRAY);
+        DrawRectangleLinesEx((Rectangle){rectPosX, rectPosY, rectWidth, rectHeight}, 5, BLACK);
+        DrawRectangle((screenWidth - 200) / 2, (screenHeight - 100) / 2 - 100, 200, 50, YELLOW);
+        DrawRectangleLinesEx((Rectangle){(screenWidth - 200) / 2, (screenHeight - 100) / 2 - 100, 200, 50}, 5, ORANGE);
+        DrawRectangle((screenWidth - 130) / 2, (screenHeight - 100) / 2, 130, 150, BLACK);
+
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                float squareWidth = 130 / 3;
+                float squareHeight = 150 / 3;
+                float squarePosX = (screenWidth - 130) / 2 + col * squareWidth;
+                float squarePosY = (screenHeight - 100) / 2 + row * squareHeight;
+
+                DrawRectangle(squarePosX, squarePosY, squareWidth, squareHeight, DARKGRAY);
+                DrawRectangleLinesEx((Rectangle){squarePosX, squarePosY, squareWidth, squareHeight}, 3, BLACK);
+            }
+        }
+
+        // Draw math expression and user input
+        DrawText(mathExpression, (screenWidth - MeasureText(mathExpression, 20)) / 2, (screenHeight - 100) / 2 - 100 + 15, 20, BLACK);
+        DrawText(userInput, (screenWidth - MeasureText(userInput, 20)) / 2 + 70, (screenHeight - 100) / 2 - 100 + 15, 20, BLUE);
+
+        // Display feedback if the input has been submitted
+        
+        if(math!=0 && !answerCorrect)
+            DrawText("Incorrect!", (screenWidth - MeasureText("Incorrect!", 20)) / 2, (screenHeight - 100) / 2 - 100 + 50, 20, RED);
+    
+        // Draw loading bar if the game is not over
+        if (!stopTimer) {
+            float progress = elapsedTime / duration;
+            float filledWidth = barWidth * progress;
+
+            DrawRectangle(barPosX, barPosY, barWidth, barHeight, LIGHTGRAY);
+            DrawRectangle(barPosX, barPosY, filledWidth, barHeight, RED);
+
+            char counterText[20];
+            sprintf(counterText, "%.2f s", elapsedTime);
+            int counterTextWidth = MeasureText(counterText, 20);
+            DrawText(counterText, barPosX + (barWidth - counterTextWidth) / 2, barPosY + barHeight + 10, 20, BLACK);
+        } else if(stopTimer==1 && i<=9){
+            // Display "Game Over" when the timer stops
+              if (stopTimer && (!inputSubmitted || !answerCorrect)) {
+                DrawText("Game Over", (screenWidth - MeasureText("Game Over", 40)) / 2, screenHeight / 2, 40, RED);
+                DrawText("Press SPACE to restart", (screenWidth - MeasureText("Press SPACE to restart", 20)) / 2, screenHeight / 2 + 150, 20, BLACK);
+                gameStarted=false;
+                gameOver=true;
+                i=0;
+    }
+        }
+         else if(i>9 && stopTimer==1){
+             DrawText("You WIN!", (screenWidth - MeasureText("Game Over", 40)) / 2, screenHeight / 2, 40, GREEN);
+             gameStarted=false;
+             gameOver=true;
+             DrawText("Press SPACE to restart", (screenWidth - MeasureText("Press SPACE to restart", 20)) / 2, screenHeight / 2 + 150, 20, BLACK);
+             i=0;
+         }
+        }
+
+        EndDrawing();
+    }
+
+    // Cleanup and close window
+    CloseWindow();
+
+    return 0;
+}
