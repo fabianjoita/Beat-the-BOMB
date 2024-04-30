@@ -122,7 +122,6 @@ int main(void) {
     const int screenWidth = 1900;
     const int screenHeight = 1000;
     InitWindow(screenWidth, screenHeight, "Loading Bar Timer Example");
-    int i=0;
 
     int math;
     // Variables
@@ -332,7 +331,6 @@ int main(void) {
                     DrawText("Press SPACE to restart", (screenWidth - MeasureText("Press SPACE to restart", 20)) / 2, screenHeight / 2 + 150, 20, BLACK);
                     gameStarted=false;
                     gameOver=true;
-                    i=0;
                     ptr = graph->head[0];
                     ptrs = ptr->next_secundar;
                 }
@@ -342,7 +340,6 @@ int main(void) {
                 gameStarted=false;
                 gameOver=true;
                 DrawText("Press SPACE to restart", (screenWidth - MeasureText("Press SPACE to restart", 20)) / 2, screenHeight / 2 + 150, 20, BLACK);
-                i=0;
                 ptr = graph->head[0];
                 ptrs = ptr->next_secundar;
             }
