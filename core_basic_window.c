@@ -3,10 +3,11 @@
 #include <string.h>
 #include "graph.c"
 #include <raylib.h>
+#include <time.h>
 
 // Definirea dimensiunilor ferestrei
-#define SCREEN_WIDTH 1600
-#define SCREEN_HEIGHT 800
+#define SCREEN_WIDTH GetScreenWidth()
+#define SCREEN_HEIGHT GetScreenHeight()
 
 
 void drawCategories(int screenWidth, int screenHeight, int numCategories, struct Graph* graph, int scrollOffset) {
@@ -25,7 +26,7 @@ void drawCategories(int screenWidth, int screenHeight, int numCategories, struct
     for (int i = scrollOffset; i < scrollOffset + visibleCategories && i < numCategories; i++) {
         struct node* ptr = graph->head[i];
         if (ptr != NULL) {
-            DrawText(ptr->continut_nod_graf_principal, categoryPosX + 5, categoryPosY + 10 + (i - scrollOffset) * 30, 10, BLACK);
+            DrawText(ptr->continut_nod_graf_principal, categoryPosX + 10, categoryPosY + 30 + (i - scrollOffset) * 30, 10, BLACK);
         }
     }
 }
@@ -36,37 +37,40 @@ bool isMouseOver(Rectangle rect) {
 }
 
 // Funcție pentru tratarea răspunsului utilizatorului
-void handleUserInput(char userAnswer, char correctAnswer) {
+void handleUserInput( char userAnswer, char correctAnswer[]) {
+
     // Verificăm dacă răspunsul utilizatorului este corect și afișăm un mesaj corespunzător
-    if (correctAnswer == userAnswer) {
-        DrawText("Bravo! Ai răspuns corect.", GetScreenWidth() / 2 - 100, GetScreenHeight() / 2 + 100, 20, DARKGREEN);
-    } else {
-        DrawText("Hopa! Ai răspuns greșit.", GetScreenWidth() / 2 - 100, GetScreenHeight() / 2 + 100, 20, RED);
-    }
+        if (correctAnswer[0] == userAnswer) {
+            DrawText("Bravo! Ai răspuns corect.", GetScreenWidth() / 2 + 400, GetScreenHeight() / 2 + 100, 20, DARKGREEN);
+        } else {
+            DrawText("Hopa! Ai răspuns greșit.", GetScreenWidth() / 2 + 400, GetScreenHeight() / 2 + 100, 20, RED);
+        }
 }
 
 // Funcție pentru desenarea întrebării curente
-void drawCurrentQuestion(int screenWidth, int screenHeight, struct node_secund currentQuestion, int *action_button) {
+void drawCurrentQuestion(int screenWidth, int screenHeight, struct node_secund *currentQuestion, int *action_button) {
     // Desenarea butoanelor și textului întrebării
-    DrawRectangle(screenWidth / 2 - 100 - 10, screenHeight / 2, 100, 50, GRAY);
-    DrawRectangle(screenWidth / 2 + 10, screenHeight / 2, 100, 50, GRAY);
-    DrawText("TRUE", screenWidth / 2 - 100 / 2 - MeasureText("TRUE", 20) / 2, screenHeight / 2 + 15, 20, BLACK);
-    DrawText("FALSE", screenWidth / 2 + 100 / 2 - MeasureText("FALSE", 20) / 2, screenHeight / 2 + 15, 20, BLACK);
+    DrawRectangle(screenWidth / 2 + 400 , screenHeight / 2, 100, 50, GRAY);
+    DrawRectangle(screenWidth / 2 + 600, screenHeight / 2, 100, 50, GRAY);
+    DrawText("TRUE", screenWidth / 2 + 450 - MeasureText("TRUE", 20) / 2, screenHeight / 2 + 15, 20, BLACK);
+    DrawText("FALSE", screenWidth / 2 + 650 - MeasureText("FALSE", 20) / 2, screenHeight / 2 + 15, 20, BLACK);
 
     // Desenarea întrebării în mijlocul ecranului
-    DrawText(currentQuestion.continut_nod_graf_secundar, screenWidth / 2, screenHeight / 2 - 100, 20, DARKGREEN);
+    DrawText(currentQuestion->continut_nod_graf_secundar, screenWidth / 2, screenHeight / 2 - 100, 10, DARKGREEN);
 
     // Verificăm dacă cursorul mouse-ului se află peste butonul "TRUE" sau "FALSE" și dacă utilizatorul a făcut clic
-    Rectangle buttonARect = { screenWidth / 2 - 100 - 10, screenHeight / 2, 100, 50 };
-    Rectangle buttonBRect = { screenWidth / 2 + 10, screenHeight / 2, 100, 50 };
+    Rectangle buttonARect = { screenWidth / 2 + 400, screenHeight / 2, 100, 50 };
+    Rectangle buttonBRect = { screenWidth / 2 + 600, screenHeight / 2, 100, 50 };
 
-    if (!(*action_button)) { // Așteptăm răspunsul utilizatorului doar dacă nu a fost acționat deja un buton
+    if ((*action_button) == 0) { // Așteptăm răspunsul utilizatorului doar dacă nu a fost acționat deja un buton
         if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
             if (isMouseOver(buttonARect)) {
-                handleUserInput('T', currentQuestion.continut_nod_graf_secundar[0]);
+                handleUserInput('T', currentQuestion->answer);
+                printf("%s \n\n", currentQuestion->answer);//am verificat sa nu se modificat datele nodurilor
                 (*action_button) = 1;
+
             } else if (isMouseOver(buttonBRect)) {
-                handleUserInput('F', currentQuestion.continut_nod_graf_secundar[0]);
+                handleUserInput('F', currentQuestion->answer);
                 (*action_button) = 1;
             }
         }
@@ -122,6 +126,8 @@ int main(void) {
     fclose(file);
     struct Graph* graph = createGraph(edges, num_edges, num_vertices);
 
+    printGraph(graph, num_vertices);
+
     // Inițializare fereastră
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Beat The Bomb");
     SetTargetFPS(300); // Reducem FPS-ul pentru a limita utilizarea excesivă a CPU-ului
@@ -135,11 +141,6 @@ int main(void) {
 
 
     while (!WindowShouldClose()) {
-        BeginDrawing();
-        ClearBackground(RAYWHITE);
-
-        // Desenarea categoriilor
-        drawCategories(SCREEN_WIDTH, SCREEN_HEIGHT, 21, graph, 0);
 
         printf("question count %d", question_count);
 
@@ -158,8 +159,15 @@ int main(void) {
         }
 
        if (question_ptr != NULL) {
-            drawCurrentQuestion(SCREEN_WIDTH, SCREEN_HEIGHT, *question_ptr, &action_button);
-            if (action_button == 1) {
+           BeginDrawing();
+           ClearBackground(RAYWHITE);
+
+            // Desenarea categoriilor
+           drawCategories(SCREEN_WIDTH, SCREEN_HEIGHT, 21, graph, 0);
+
+           drawCurrentQuestion(SCREEN_WIDTH, SCREEN_HEIGHT, question_ptr, &action_button);
+
+           if (action_button == 1) {
                 action_button = 0; // Resetează acțiunea butonului pentru următoarea întrebare
                 question_count++;   // Avansăm la următoarea întrebare
             }
