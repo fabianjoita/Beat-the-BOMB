@@ -9,6 +9,11 @@
 #define SCREEN_WIDTH GetScreenWidth()
 #define SCREEN_HEIGHT GetScreenHeight()
 
+// Funcție pentru verificarea dacă cursorul mouse-ului se află peste un dreptunghi
+bool isMouseOver(Rectangle rect) {
+    return CheckCollisionPointRec(GetMousePosition(), rect);
+}
+
 void WrapText(const char* text, float maxWidth, float x, float y, int fontSize, Color color) {
     // Create a buffer to hold the current line
     char buffer[MAX_LINE_LENGTH];
@@ -118,10 +123,11 @@ int main(void) {
 
     printGraph(graph, num_vertices);
 
-     // Initialization
+  // Initialization
     const int screenWidth = 1900;
     const int screenHeight = 1000;
     InitWindow(screenWidth, screenHeight, "Loading Bar Timer Example");
+    int i=0;
 
     int math;
     // Variables
@@ -152,6 +158,9 @@ int main(void) {
     bool gameStarted = false; // Flag to track if the game has started
     bool gameOver = false;
     int sum;
+    int correct_answer = 0;
+    int wrong_answer = 0;
+    int contor_submited = 0;
 
     struct node* ptr = graph->head[0];
     struct node_secund* ptrs = ptr->next_secundar;
@@ -180,6 +189,16 @@ int main(void) {
 
             // Update timer and check for game over condition
             if (!stopTimer) {
+                //---------------------------------------------------------------------------
+                if(contor_submited == 4) {
+                    contor_submited = 0;
+                    correct_answer = 0;
+                    wrong_answer = 0;
+                }
+                else {
+                    contor_submited ++;
+                }
+                //-------------------------------------------------------------------------
                 float currentTime = GetTime();
                 elapsedTime = currentTime - startTime;
                 float progress = elapsedTime / duration;
@@ -210,6 +229,8 @@ int main(void) {
 
 
                     if (answerCorrect) {
+                        //---------------------------------------------aici
+                        correct_answer ++;
                         // Recover 5 seconds from the timer if the answer is correct
                         if(elapsedTime>5){
                             elapsedTime -= 5.0f;
@@ -232,7 +253,7 @@ int main(void) {
                         }
                         else {
                             category_index++;
-                            if(category_index!=20) {
+                            if(category_index != 20) {
 
 
                                 ptr = graph->head[category_index];
@@ -252,6 +273,9 @@ int main(void) {
                         userInput[0] = '\0';
                         inputSubmitted = false;
                     }
+                    //-----aici
+                    wrong_answer ++;
+                    printf("corect %d wrong %d \n\n", correct_answer, wrong_answer);
                 }
             }
         }
@@ -265,25 +289,6 @@ int main(void) {
             DrawText("Press SPACE to start", (screenWidth - MeasureText("Press SPACE to start", 40)) / 2, screenHeight / 2, 40, BLACK);
         } else {
 
-
-            // Draw rectangles and loading bar
-            //DrawRectangle(rectPosX, rectPosY, rectWidth, rectHeight, GRAY);
-            // DrawRectangleLinesEx((Rectangle){rectPosX, rectPosY, rectWidth, rectHeight}, 5, BLACK);
-            //DrawRectangle((screenWidth - 200) / 2, (screenHeight - 100) / 2 - 100, 200, 50, YELLOW);
-            // DrawRectangleLinesEx((Rectangle){(screenWidth - 200) / 2, (screenHeight - 100) / 2 - 100, 200, 50}, 5, ORANGE);
-            //DrawRectangle((screenWidth - 130) / 2, (screenHeight - 100) / 2, 130, 150, BLACK);
-
-            // for (int row = 0; row < 3; row++) {
-            //for (int col = 0; col < 3; col++) {
-            //float squareWidth = 130 / 3;
-            //float squareHeight = 150 / 3;
-            //float squarePosX = (screenWidth - 130) / 2 + col * squareWidth;
-            // float squarePosY = (screenHeight - 100) / 2 + row * squareHeight;
-
-            //DrawRectangle(squarePosX, squarePosY, squareWidth, squareHeight, DARKGRAY);
-            //DrawRectangleLinesEx((Rectangle){squarePosX, squarePosY, squareWidth, squareHeight}, 3, BLACK);
-            //}
-            //}
 
             // Draw math expression and user input
             if(!showCorrectMessage) {
@@ -316,6 +321,22 @@ int main(void) {
             if (!stopTimer) {
                 float progress = elapsedTime / duration;
                 float filledWidth = barWidth * progress;
+//-----------------------------------------------------------------------------------------------------------------------
+                char correct_answer_str[20]; // Șir pentru stocarea răspunsului corect
+                char wrong_answer_str[20];   // Șir pentru stocarea răspunsului greșit
+
+                // Convertirea numerelor în șiruri de caractere
+                sprintf(correct_answer_str, "%d", correct_answer);
+                sprintf(wrong_answer_str, "%d", wrong_answer);
+
+                // Afisarea răspunsurilor
+                DrawText(ptr->continut_nod_graf_principal, 10, 20, 20, BLACK);
+                DrawText("CORRECT: ", 10, 80, 20, DARKGREEN);
+                DrawText("WRONG: ", 10, 120, 20, RED);
+                DrawText(correct_answer_str, 250, 80, 20, GREEN); // Afișează răspunsul corect cu culoarea verde
+                DrawText(wrong_answer_str, 250, 120, 20, RED);     // Afișează răspunsul greșit cu culoarea roșie
+
+
 
                 DrawRectangle(barPosX, barPosY, barWidth, barHeight, LIGHTGRAY);
                 DrawRectangle(barPosX, barPosY, filledWidth, barHeight, RED);
@@ -324,22 +345,24 @@ int main(void) {
                 sprintf(counterText, "%.2f s", elapsedTime);
                 int counterTextWidth = MeasureText(counterText, 20);
                 DrawText(counterText, barPosX + (barWidth - counterTextWidth) / 2, barPosY + barHeight + 10, 20, BLACK);
-            } else if(stopTimer==1 && category_index<=19){
+            } else if(stopTimer == 1 && category_index <= 19){
                 // Display "Game Over" when the timer stops
                 if (stopTimer && (!inputSubmitted || !answerCorrect)) {
                     DrawText("Game Over", (screenWidth - MeasureText("Game Over", 40)) / 2, screenHeight / 2, 40, RED);
                     DrawText("Press SPACE to restart", (screenWidth - MeasureText("Press SPACE to restart", 20)) / 2, screenHeight / 2 + 150, 20, BLACK);
                     gameStarted=false;
                     gameOver=true;
+                    i=0;
                     ptr = graph->head[0];
                     ptrs = ptr->next_secundar;
                 }
             }
-            else if(category_index==20 && stopTimer==1){
+            else if(category_index==20 && stopTimer == 1){
                 DrawText("You WIN!", (screenWidth - MeasureText("Game Over", 40)) / 2, screenHeight / 2, 40, GREEN);
                 gameStarted=false;
                 gameOver=true;
                 DrawText("Press SPACE to restart", (screenWidth - MeasureText("Press SPACE to restart", 20)) / 2, screenHeight / 2 + 150, 20, BLACK);
+                i=0;
                 ptr = graph->head[0];
                 ptrs = ptr->next_secundar;
             }
