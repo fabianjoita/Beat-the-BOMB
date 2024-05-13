@@ -9,11 +9,6 @@
 #define SCREEN_WIDTH GetScreenWidth()
 #define SCREEN_HEIGHT GetScreenHeight()
 
-// Funcție pentru verificarea dacă cursorul mouse-ului se află peste un dreptunghi
-bool isMouseOver(Rectangle rect) {
-    return CheckCollisionPointRec(GetMousePosition(), rect);
-}
-
 void WrapText(const char* text, float maxWidth, float x, float y, int fontSize, Color color) {
     // Create a buffer to hold the current line
     char buffer[MAX_LINE_LENGTH];
@@ -119,15 +114,14 @@ int main(void) {
     }
 
     fclose(file);
-    struct Graph* graph = createGraph(edges, num_edges, num_vertices);
+    struct Graph *graph = createGraph(edges, num_edges, num_vertices);
 
     printGraph(graph, num_vertices);
 
-  // Initialization
+    // Initialization
     const int screenWidth = 1900;
     const int screenHeight = 1000;
     InitWindow(screenWidth, screenHeight, "Loading Bar Timer Example");
-    int i=0;
 
     int math;
     // Variables
@@ -135,9 +129,13 @@ int main(void) {
     float rectPosX = (screenWidth - rectWidth) / 2;
     float rectPosY = (screenHeight - rectHeight - 50) / 2;
     char mathExpression[10000];
-    int category_index=0;
+    int category_index = 0;
     char mathExpressionOld[10000];
 
+    const float clickDuration = 1.0f;
+
+    char correctAnswer;
+    char userAnswer;
     bool showCorrectMessage = false;
     float correctStartTime = 0.0f;
 
@@ -145,6 +143,19 @@ int main(void) {
     int inputIndex = 0; // Current index for user input
     bool inputSubmitted = false; // Flag to track if input has been submitted
     bool answerCorrect = false; // Flag to track if the answer is correct
+
+    bool trueClicked = false;
+    bool falseClicked = false;
+    float trueClickTimer = 0.0f;
+    float falseClickTimer = 0.0f;
+    int save;
+    // Define button positions and sizes
+    Rectangle trueButton = {screenWidth/2-300, screenHeight / 2 +250, 150, 100};
+    Rectangle falseButton = {screenWidth/2+150, screenHeight / 2 +250, 150, 100};
+
+    // Define colors for the buttons
+    Color trueColor = LIGHTGRAY;
+    Color falseColor = LIGHTGRAY;
 
     // Loading bar
     float barWidth = 600;
@@ -157,13 +168,13 @@ int main(void) {
     bool stopTimer = false; // Flag to stop the timer
     bool gameStarted = false; // Flag to track if the game has started
     bool gameOver = false;
-    int sum;
-    int correct_answer = 0;
-    int wrong_answer = 0;
-    int contor_submited = 0;
+    int corecte=0;
+    char c_score[10];
+    int incorecte=0;
+    char i_score[10];
 
-    struct node* ptr = graph->head[0];
-    struct node_secund* ptrs = ptr->next_secundar;
+    struct node *ptr = graph->head[0];
+    struct node_secund *ptrs = ptr->next_secundar;
     // Main game loop
     while (!WindowShouldClose()) {
 
@@ -172,201 +183,225 @@ int main(void) {
                 gameStarted = true; // Start the game when space is pressed
                 gameOver = false;
                 stopTimer = false; // Reset stopTimer flag
-                inputIndex = 0; // Reset input index
-                userInput[0] = '\0'; // Reset user input
                 answerCorrect = false;
-                math=0;
+                math = 0;
                 sprintf(mathExpressionOld, "%s", mathExpression);
-                sprintf(mathExpression, "%s",ptrs->continut_nod_graf_secundar);
-
+                sprintf(mathExpression, "%s", ptrs->continut_nod_graf_secundar);
+                correctAnswer = ptrs->answer[0];
                 ptrs = ptrs->next;
                 // Reset the timer
                 startTime = GetTime();
                 elapsedTime = 0.0f;
+                corecte=0;
+                incorecte=0;
+                category_index=0;
             }
         } else {
 
-
             // Update timer and check for game over condition
             if (!stopTimer) {
-                //---------------------------------------------------------------------------
-                if(contor_submited == 4) {
-                    contor_submited = 0;
-                    correct_answer = 0;
-                    wrong_answer = 0;
-                }
-                else {
-                    contor_submited ++;
-                }
-                //-------------------------------------------------------------------------
                 float currentTime = GetTime();
                 elapsedTime = currentTime - startTime;
                 float progress = elapsedTime / duration;
 
-                if (elapsedTime >= duration || category_index==20) {
+                if (elapsedTime >= duration || category_index == 20) {
                     stopTimer = true; // End the timer when the duration is reached
                 }
 
-
-                // Check for user input
-                int keyPressed = GetCharPressed();
-                // am pus asa ca voiam sa pun T/F dar am lasat deocamdata, puneti doar 0 ca raspuns
-                if (keyPressed == 48 || keyPressed == 57 && inputIndex < sizeof(userInput) - 1 && !inputSubmitted) {
-                    // Add the inputted digit to the user input array
-                    userInput[inputIndex++] = (char)keyPressed;
-                    userInput[inputIndex] = '\0'; // Null-terminate the string
-                } else if (IsKeyPressed(KEY_BACKSPACE) && inputIndex > 0 && !inputSubmitted) {
-                    // Handle backspace input
-                    inputIndex--;
-                    userInput[inputIndex] = '\0'; // Null-terminate the string
-                } else if (IsKeyPressed(KEY_ENTER) && !inputSubmitted) {
-                    // Handle enter key submission
-                    inputSubmitted = true;
-                    int userAnswer = atoi(userInput); // Convert user input to integer
-                    answerCorrect = (userAnswer == sum); // Check if the answer is correct
-                    math++;
-
-
-
-                    if (answerCorrect) {
-                        //---------------------------------------------aici
-                        correct_answer ++;
-                        // Recover 5 seconds from the timer if the answer is correct
-                        if(elapsedTime>5){
-                            elapsedTime -= 5.0f;
-                            startTime = currentTime - elapsedTime;
+                if (!inputSubmitted) {
+                    if (CheckCollisionPointRec(GetMousePosition(), trueButton)) {
+                        trueColor = GRAY; // Change color to indicate hover
+                        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+                            // True button clicked
+                            trueColor = RED; // Set color to indicate click
+                            trueClicked = true;
+                            trueClickTimer = clickDuration;
+                            inputSubmitted = true;
+                            math++;
+                            userAnswer = 'T';
+                            answerCorrect = (userAnswer == correctAnswer);
+                            // You can add your desired functionality here
                         }
-                        else{
-                            elapsedTime= 0;
-                            startTime = currentTime - elapsedTime;
+                    } else {
+                        trueColor = LIGHTGRAY; // Reset color when not hovered
+                    }
+
+                    // Check for False button click
+                    if (CheckCollisionPointRec(GetMousePosition(), falseButton)) {
+                        falseColor = GRAY; // Change color to indicate hover
+                        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+                            // False button clicked
+                            falseColor = RED; // Set color to indicate click
+                            falseClicked = true;
+                            falseClickTimer = clickDuration;
+                            inputSubmitted = true;
+                            math++;
+                            userAnswer = 'F';
+                            answerCorrect = (userAnswer == correctAnswer);
+                            // You can add your desired functionality here
                         }
-
-                        showCorrectMessage = true;
-                        correctStartTime = GetTime();
-                        // Generate a new math expression
-
-
-                        if(ptrs != NULL) {
-                            sprintf(mathExpressionOld, "%s", mathExpression);
-                            sprintf(mathExpression, "%s", ptrs->continut_nod_graf_secundar);
-                            ptrs = ptrs->next;
+                    } else {
+                        falseColor = LIGHTGRAY; // Reset color when not hovered
+                    }
+                    if(inputSubmitted) {
+                        if (answerCorrect) {
+                            // Recover 5 seconds from the timer if the answer is correct
+                            if (elapsedTime > 5) {
+                                elapsedTime -= 5.0f;
+                                startTime = currentTime - elapsedTime;
+                            } else {
+                                elapsedTime = 0;
+                                startTime = currentTime - elapsedTime;
+                            }
+                        corecte++;
+                            sprintf(c_score, "%d",corecte);
                         }
                         else {
+                            incorecte++;
+                            sprintf(i_score, "%d",incorecte);
+                        }
+                        showCorrectMessage = true;
+                        correctStartTime = GetTime();
+
+                        if (ptrs != NULL) {
+                            sprintf(mathExpressionOld, "%s", mathExpression);
+                            sprintf(mathExpression, "%s", ptrs->continut_nod_graf_secundar);
+                            correctAnswer = ptrs->answer[0];
+                            ptrs = ptrs->next;
+                        } else {
                             category_index++;
-                            if(category_index != 20) {
-
-
+                            if (category_index != 20) {
                                 ptr = graph->head[category_index];
                                 ptrs = ptr->next_secundar;
                                 sprintf(mathExpressionOld, "%s", mathExpression);
                                 sprintf(mathExpression, "%s", ptrs->continut_nod_graf_secundar);
-
+                                correctAnswer = ptrs->answer[0];
                                 ptrs = ptrs->next;
                             }
 
                         }
-
-
-
-                        // Reset user input
-                        inputIndex = 0;
-                        userInput[0] = '\0';
                         inputSubmitted = false;
                     }
-                    //-----aici
-                    wrong_answer ++;
-                    printf("corect %d wrong %d \n\n", correct_answer, wrong_answer);
                 }
+
+// Update the timers and reset flags if necessary
+                if (trueClicked) {
+                    trueClickTimer -= GetFrameTime();
+                    if (trueClickTimer <= 0.0f) {
+                        trueClicked = false;
+                    }
+                }
+
+                if (falseClicked) {
+                    falseClickTimer -= GetFrameTime();
+                    if (falseClickTimer <= 0.0f) {
+                        falseClicked = false;
+                    }
+                }
+
             }
         }
 
-        // Draw
-        BeginDrawing();
-        ClearBackground(GRAY);
 
-        if (!gameStarted && !gameOver) {
-            // Display message to press Space to start the game
-            DrawText("Press SPACE to start", (screenWidth - MeasureText("Press SPACE to start", 40)) / 2, screenHeight / 2, 40, BLACK);
-        } else {
+    // Draw
+    BeginDrawing();
+    ClearBackground(GRAY);
 
 
-            // Draw math expression and user input
-            if(!showCorrectMessage) {
-                WrapText(mathExpression, 1300, 500, 365, 20, BLACK);
-                DrawText(userInput, (screenWidth - MeasureText(userInput, 20)) / 2, (screenHeight - 100) / 2 - 100 + 50,
-                         20, BLUE);
+    if (!gameStarted && !gameOver) {
+        // Display message to press Space to start the game
+        DrawText("Press SPACE to start", (screenWidth - MeasureText("Press SPACE to start", 40)) / 2, screenHeight / 2,
+                 40, BLACK);
+    } else {
+
+        // Draw the True button
+        DrawRectangleRec(trueButton, trueClicked ? ORANGE : YELLOW);
+        DrawText("True", (int) (trueButton.x + 50), (int) (trueButton.y + 40), 20, BLACK);
+
+        // Draw the False button
+        DrawRectangleRec(falseButton, falseClicked ? ORANGE : YELLOW);
+        DrawText("False", (int) (falseButton.x + 50), (int) (falseButton.y + 40), 20, BLACK);
+
+
+        // Draw math expression and user input
+        if (!showCorrectMessage) {
+            WrapText(mathExpression, 1300, 500, 365, 30, BLACK);
+
+        }
+        // Display feedback if the input has been submitted
+
+
+        if (showCorrectMessage) {
+            float currentCorrectTime = GetTime();
+            float correctElapsedTime = currentCorrectTime - correctStartTime;
+
+            if (correctElapsedTime < 1.0f) {
+                // Continue showing the math expression and "Correct" message
+                WrapText(mathExpressionOld, 1300, 500, 365, 30, BLACK);
+
+                if (math != 0 && !answerCorrect)
+                    DrawText("Incorrect!", (screenWidth - MeasureText("Incorrect!", 20)) / 2,
+                             (screenHeight - 100) / 2 - 100 - 50, 30, RED);
+
+                if(answerCorrect)
+                    DrawText("Correct!", (screenWidth - MeasureText("Correct!", 20)) / 2,
+                         (screenHeight - 100) / 2 - 100 - 50, 30, GREEN);
+            } else {
+                // Stop showing the correct message and move on
+                showCorrectMessage = false;
             }
-            // Display feedback if the input has been submitted
+        }
 
-            if(math!=0 && !answerCorrect)
-                DrawText("Incorrect!", (screenWidth - MeasureText("Incorrect!", 20)) / 2, (screenHeight - 100) / 2 - 100 + 50, 20, RED);
+        DrawText("Incorrects:", 80, 150, 50, RED);
+        if(incorecte!=0)
+            DrawText(i_score, 390, 150, 50, RED);
+        else
+            DrawText("0", 390, 150, 50, RED);
 
-            if (showCorrectMessage) {
-                float currentCorrectTime = GetTime();
-                float correctElapsedTime = currentCorrectTime - correctStartTime;
-
-                if (correctElapsedTime < 1.0f) {
-                    // Continue showing the math expression and "Correct" message
-                    WrapText(mathExpressionOld, 1300, 500, 365, 20, BLACK);
-
-                    DrawText("Correct!", (screenWidth - MeasureText("Correct!", 20)) / 2, (screenHeight - 100) / 2 - 100 - 50, 20, GREEN);
-                } else {
-                    // Stop showing the correct message and move on
-                    showCorrectMessage = false;
-                }
-            }
+        DrawText("Corrects:", 100, 220, 50, GREEN);
+        if(corecte!=0)
+            DrawText(c_score, 360, 220, 50, GREEN);
+        else
+            DrawText("0", 360, 220, 50, GREEN);
 
 
-            // Draw loading bar if the game is not over
-            if (!stopTimer) {
-                float progress = elapsedTime / duration;
-                float filledWidth = barWidth * progress;
-//-----------------------------------------------------------------------------------------------------------------------
-                char correct_answer_str[20]; // Șir pentru stocarea răspunsului corect
-                char wrong_answer_str[20];   // Șir pentru stocarea răspunsului greșit
+        // Draw loading bar if the game is not over
+        if (!stopTimer) {
+            float progress = elapsedTime / duration;
+            float filledWidth = barWidth * progress;
 
-                // Convertirea numerelor în șiruri de caractere
-                sprintf(correct_answer_str, "%d", correct_answer);
-                sprintf(wrong_answer_str, "%d", wrong_answer);
+            DrawRectangle(barPosX, barPosY, barWidth, barHeight, LIGHTGRAY);
+            DrawRectangle(barPosX, barPosY, filledWidth, barHeight, RED);
 
-                // Afisarea răspunsurilor
-                DrawText(ptr->continut_nod_graf_principal, 10, 20, 20, BLACK);
-                DrawText("CORRECT: ", 10, 80, 20, DARKGREEN);
-                DrawText("WRONG: ", 10, 120, 20, RED);
-                DrawText(correct_answer_str, 250, 80, 20, GREEN); // Afișează răspunsul corect cu culoarea verde
-                DrawText(wrong_answer_str, 250, 120, 20, RED);     // Afișează răspunsul greșit cu culoarea roșie
+            char counterText[20];
+            sprintf(counterText, "%.2f s", elapsedTime);
+            int counterTextWidth = MeasureText(counterText, 20);
+            DrawText(counterText, barPosX + (barWidth - counterTextWidth) / 2, barPosY + barHeight + 10, 20, BLACK);
+        } else if (stopTimer == 1 && category_index <= 19) {
+            // Display "Game Over" when the timer stops
+            if (stopTimer && (!inputSubmitted || !answerCorrect)) {
 
-
-
-                DrawRectangle(barPosX, barPosY, barWidth, barHeight, LIGHTGRAY);
-                DrawRectangle(barPosX, barPosY, filledWidth, barHeight, RED);
-
-                char counterText[20];
-                sprintf(counterText, "%.2f s", elapsedTime);
-                int counterTextWidth = MeasureText(counterText, 20);
-                DrawText(counterText, barPosX + (barWidth - counterTextWidth) / 2, barPosY + barHeight + 10, 20, BLACK);
-            } else if(stopTimer == 1 && category_index <= 19){
-                // Display "Game Over" when the timer stops
-                if (stopTimer && (!inputSubmitted || !answerCorrect)) {
-                    DrawText("Game Over", (screenWidth - MeasureText("Game Over", 40)) / 2, screenHeight / 2, 40, RED);
-                    DrawText("Press SPACE to restart", (screenWidth - MeasureText("Press SPACE to restart", 20)) / 2, screenHeight / 2 + 150, 20, BLACK);
-                    gameStarted=false;
-                    gameOver=true;
-                    i=0;
-                    ptr = graph->head[0];
-                    ptrs = ptr->next_secundar;
-                }
-            }
-            else if(category_index==20 && stopTimer == 1){
-                DrawText("You WIN!", (screenWidth - MeasureText("Game Over", 40)) / 2, screenHeight / 2, 40, GREEN);
-                gameStarted=false;
-                gameOver=true;
-                DrawText("Press SPACE to restart", (screenWidth - MeasureText("Press SPACE to restart", 20)) / 2, screenHeight / 2 + 150, 20, BLACK);
-                i=0;
+                DrawText("Game Over", (screenWidth - MeasureText("Game Over", 40)) / 2, screenHeight / 2, 40, RED);
+                DrawText("Press SPACE to restart", (screenWidth - MeasureText("Press SPACE to restart", 20)) / 2,
+                         screenHeight / 2 + 150, 20, BLACK);
+                gameStarted = false;
+                gameOver = true;
                 ptr = graph->head[0];
                 ptrs = ptr->next_secundar;
             }
+        } else if (category_index == 20 && stopTimer == 1) {
+
+            DrawText("You WIN!", (screenWidth - MeasureText("Game Over", 40)) / 2, screenHeight / 2, 40, GREEN);
+            gameStarted = false;
+            gameOver = true;
+            DrawText("Press SPACE to restart", (screenWidth - MeasureText("Press SPACE to restart", 20)) / 2,
+                     screenHeight / 2 + 150, 20, BLACK);
+            ptr = graph->head[0];
+            ptrs = ptr->next_secundar;
+
+
         }
+    }
 
         EndDrawing();
     }
