@@ -121,7 +121,27 @@ int main(void) {
     // Initialization
     const int screenWidth = 1900;
     const int screenHeight = 1000;
-    InitWindow(screenWidth, screenHeight, "Loading Bar Timer Example");
+    InitWindow(screenWidth, screenHeight, "Beat The Bomb");
+    SetConfigFlags(FLAG_VSYNC_HINT);
+    InitAudioDevice();
+    Sound sound = LoadSound("explosion-42132.mp3");
+    SetSoundVolume(sound, 0.1);
+
+    Image bomb = LoadImage("bomb.png");
+    Texture2D texture = LoadTextureFromImage(bomb);
+    UnloadImage(bomb);
+
+    Image sticker = LoadImage("sticker.png");
+    int newWidth = sticker.width * 2;
+    int newHeight = sticker.height * 2;
+    ImageResize(&sticker, newWidth, newHeight);
+    Texture2D texture2 = LoadTextureFromImage(sticker);
+
+
+    UnloadImage(sticker);
+
+    SetTargetFPS(60);
+
 
     int math;
     // Variables
@@ -129,6 +149,7 @@ int main(void) {
     float rectPosX = (screenWidth - rectWidth) / 2;
     float rectPosY = (screenHeight - rectHeight - 50) / 2;
     char mathExpression[10000];
+    char mathExpression2[10000];
     int category_index = 0;
     char mathExpressionOld[10000];
 
@@ -152,7 +173,6 @@ int main(void) {
     // Define button positions and sizes
     Rectangle trueButton = {screenWidth/2-300, screenHeight / 2 +250, 150, 100};
     Rectangle falseButton = {screenWidth/2+150, screenHeight / 2 +250, 150, 100};
-
     // Define colors for the buttons
     Color trueColor = LIGHTGRAY;
     Color falseColor = LIGHTGRAY;
@@ -162,7 +182,7 @@ int main(void) {
     float barHeight = 20;
     float barPosX = (screenWidth - barWidth) / 2;
     float barPosY = screenHeight - barHeight - 50;
-    float duration = 10.0f; // Timer duration in seconds
+    float duration = 20.0f; // Timer duration in seconds
     float startTime = GetTime();
     float elapsedTime = 0.0f;
     bool stopTimer = false; // Flag to stop the timer
@@ -172,10 +192,12 @@ int main(void) {
     char c_score[10];
     int incorecte=0;
     char i_score[10];
-
+    bool playsound = false;
     struct node *ptr = graph->head[0];
     struct node_secund *ptrs = ptr->next_secundar;
     // Main game loop
+
+
     while (!WindowShouldClose()) {
 
         if (!gameStarted) {
@@ -186,6 +208,8 @@ int main(void) {
                 answerCorrect = false;
                 math = 0;
                 sprintf(mathExpressionOld, "%s", mathExpression);
+                sprintf(mathExpression2, "%s", ptr->continut_nod_graf_principal);
+                ptr = ptr->next;
                 sprintf(mathExpression, "%s", ptrs->continut_nod_graf_secundar);
                 correctAnswer = ptrs->answer[0];
                 ptrs = ptrs->next;
@@ -274,6 +298,7 @@ int main(void) {
                                 ptr = graph->head[category_index];
                                 ptrs = ptr->next_secundar;
                                 sprintf(mathExpressionOld, "%s", mathExpression);
+                                sprintf(mathExpression2, "%s", ptr->continut_nod_graf_principal);
                                 sprintf(mathExpression, "%s", ptrs->continut_nod_graf_secundar);
                                 correctAnswer = ptrs->answer[0];
                                 ptrs = ptrs->next;
@@ -305,16 +330,23 @@ int main(void) {
 
     // Draw
     BeginDrawing();
-    ClearBackground(GRAY);
+    ClearBackground(RAYWHITE);
 
 
     if (!gameStarted && !gameOver) {
         // Display message to press Space to start the game
+        DrawText("Welcome to Beat The Bomb", (screenWidth - MeasureText("Welcome to Beat The Bomb", 40)) / 2, screenHeight / 2 - 400,40, BLACK);
+
         DrawText("Press SPACE to start", (screenWidth - MeasureText("Press SPACE to start", 40)) / 2, screenHeight / 2,
                  40, BLACK);
     } else {
 
+        DrawRectangle(0, 0, screenWidth / 4, screenHeight , BLACK);
+        DrawTexture(texture, screenWidth/7 - texture.width/2, screenHeight/4 + texture.height/2 - 40, WHITE);
+
+        WrapText(mathExpression2, 1300, 500, 250, 30, BLACK);
         // Draw the True button
+
         DrawRectangleRec(trueButton, trueClicked ? ORANGE : YELLOW);
         DrawText("True", (int) (trueButton.x + 50), (int) (trueButton.y + 40), 20, BLACK);
 
@@ -341,11 +373,11 @@ int main(void) {
 
                 if (math != 0 && !answerCorrect)
                     DrawText("Incorrect!", (screenWidth - MeasureText("Incorrect!", 20)) / 2,
-                             (screenHeight - 100) / 2 - 100 - 50, 30, RED);
+                             (screenHeight - 100) / 2 - 100 +200, 30, RED);
 
                 if(answerCorrect)
                     DrawText("Correct!", (screenWidth - MeasureText("Correct!", 20)) / 2,
-                         (screenHeight - 100) / 2 - 100 - 50, 30, GREEN);
+                         (screenHeight - 100) / 2 - 100 + 200, 30, GREEN);
             } else {
                 // Stop showing the correct message and move on
                 showCorrectMessage = false;
@@ -379,11 +411,22 @@ int main(void) {
             DrawText(counterText, barPosX + (barWidth - counterTextWidth) / 2, barPosY + barHeight + 10, 20, BLACK);
         } else if (stopTimer == 1 && category_index <= 19) {
             // Display "Game Over" when the timer stops
+            if (!IsSoundPlaying(sound) && playsound == false) {
+                PlaySound(sound); // Play the sound again if it's finished
+                playsound = true;
+            }
             if (stopTimer && (!inputSubmitted || !answerCorrect)) {
 
+                DrawRectangle(0, 0, screenWidth , screenHeight , RAYWHITE);
+                DrawTexture(texture2, screenWidth/2 - 520, screenHeight/2 - 500, WHITE);
+
                 DrawText("Game Over", (screenWidth - MeasureText("Game Over", 40)) / 2, screenHeight / 2, 40, RED);
+                // sound
+
+
                 DrawText("Press SPACE to restart", (screenWidth - MeasureText("Press SPACE to restart", 20)) / 2,
                          screenHeight / 2 + 150, 20, BLACK);
+                playsound = false;
                 gameStarted = false;
                 gameOver = true;
                 ptr = graph->head[0];
@@ -407,7 +450,11 @@ int main(void) {
     }
 
     // Cleanup and close window
+    CloseAudioDevice();
+    UnloadSound(sound);
     CloseWindow();
+
+
 
     return 0;
 }
