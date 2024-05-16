@@ -1,8 +1,8 @@
-# Install script for directory: C:/Users/FABIAN/CLionProjects/Beat-the-BOMB
+# Install script for directory: D:/import from git/Beat-the-BOMB-Fabi2Clion
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/core_basic_window.c")
+  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/example")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -39,7 +39,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("C:/Users/FABIAN/CLionProjects/Beat-the-BOMB/cmake-build-debug/_deps/raylib-build/cmake_install.cmake")
+  include("D:/import from git/Beat-the-BOMB-Fabi2Clion/cmake-build-debug/_deps/raylib-build/cmake_install.cmake")
 
 endif()
 
@@ -51,5 +51,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/FABIAN/CLionProjects/Beat-the-BOMB/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "D:/import from git/Beat-the-BOMB-Fabi2Clion/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

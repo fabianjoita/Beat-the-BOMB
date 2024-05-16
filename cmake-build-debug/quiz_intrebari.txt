@@ -1,80 +1,80 @@
-A1. Protecting by legislation of  a minimum of 30% of the EU’s land area and 30% of the EU’s Sea(T) 
-A2.  Protection of at least 10% of the EU’s protected areas, including primary and old-growth forests (F) 
-A3. Adequate management of all protected areas, by defining clear conservation and monitoring objectives and measures (T) 
-A4.  The EU's biodiversity strategy does not prioritize the protection of primary and old-growth forests within its protected areas. (F)
-A1. Protecting and restoring nature in the EU, by consolidating a coherent and effective network for protected areas  and restoring degraded habitats; (T)
-A2. Enabling a new governance framework to ensure co-responsibility and co-ownership by all relevant actors including setting up new financial opportunities; (T)
-A3. Adopting a global biodiversity agenda, to strengthen the contribution of the EU toward halting global biodiversity loss (T) 
-A4. Adopting a global biodiversity agenda, to strengthen the contribution of the EU toward maximizing EU use of resources and consumption on other biodiversity-rich areas of the planet. (F) 
-A1. Closure of the biological resources loop and maximizing the use of residual streams from agriculture, food processing, and biobased industries, by reusing, recycling, or composting waste materials and converting them into useful products (T) 
-A2. adopting green products or practices  based on biofertilizers, biopesticides, bio-based plastics, bioremediation, or microbiome innovations;  (T) 
-A3. By using pesticides  (of chemical synthesis) in agriculture (F) 
-A4. By introducing the  invasive species in these habitats  (F) 
-A1. by afforestation and reforestation because this action can reduce habitat loss and restore ecosystems. (T) 
-A2. Adopting eco-friendly approaches to restore degraded ecosystems and enhance biodiversity by applying biological  solutions (T) 
-A3. Carbon sequestration in soil, water, and forests and its storage in harvested  products. (T) 
-A4. Maintaining the old industrial processes to obtain fossil-based products and raw materials.  (F) 
-A1. The bioeconomy aims to close the loop of biological resources and maximize the use of residual streams from agriculture, food processing, and bio-based industries, by reusing, recycling, or composting waste materials and converting them into useful products. (T)
-A2. Adopting bio-based products or practices, such as biofertilizers, biopesticides, bio-based plastics, bioremediation, or microbiome innovations, can contribute to reducing environmental pollution and health risks from the use of chemical fertilizers and pesticides. (T)
-A3. By using pesticides (of chemical synthesis) in agriculture. (F)
-A4. By introducing invasive species in these habitats. (F)
-A1. Conflicts between agriculture and biodiversity conservation in Europe are decreasing due to the implementation of effective regulatory and market-based mechanisms. (F)
-A2. Globalization, European policies, and climate change are potential drivers of emerging biodiversity conflicts in Europe. (T)
-A3. The EU's Common Agricultural Policy (CAP) does not incorporate spatial planning in target setting and implementation to address conflicts between agriculture and biodiversity conservation. (F)
-A4. The adoption of more intensive, mechanized, and chemically-based farming production techniques in Europe is reducing pressure on biodiversity. (F)
-A1. The Commission will establish a monitoring and review mechanism to assess progress regularly and take corrective action if necessary. (T)
-A2. Enforcement of the Birds and Habitats Directives will focus solely on completing the Natura 2000 network and managing all sites effectively. (F)
-A3. The EU will help build a European Business for Biodiversity movement, integrating it into the European Climate Pact. (T)
-A4. At least €20 billion annually will be allocated for spending on biodiversity, with a significant portion coming from the EU budget dedicated to climate action. (T)
-A1. The Commission calls for European cities with at least 20,000 inhabitants to develop Urban Greening Plans as part of the EU's biodiversity strategy. (T)
-A2. Greening urban and peri-urban areas is not considered a priority in the EU's efforts to conserve biodiversity. (F)
-A3. There is no focus on rewarding community action in the Commission's approach to greening urban and peri-urban areas. (F)
-A4. The EU's Urban Greening Plans aim to increase pollution in urban areas to encourage biodiversity. (F)
-A1. The EU aims to reduce the release of pollutants such as nutrients, chemical pesticides, pharmaceuticals, hazardous chemicals, urban and industrial wastewater, litter, and plastics, to alleviate pressure on biodiversity. (T)
-A2. The EU Chemicals Strategy for Sustainability will not include measures to reduce the use of fertilizers. (F)
-A3. The EU's Zero Pollution Action Plan for Air, Water, and Soil does not target the reduction of fertilizer use. (F)
-A4. The EU's efforts to reduce pollution do not consider the impact on sensitive species and habitats. (F)
-A1. Restored and properly protected marine ecosystems are not expected to bring substantial health, social, and economic benefits to coastal communities. (F)
-A2. Sustainable harvesting of marine resources is not considered essential in the EU's approach to restoring marine ecosystems. (F)
-A3. There is no target for restoring freshwater ecosystems mentioned in the EU's biodiversity strategy. (F)
-A4. The EU aims to eliminate or reduce the by-catch of species in marine ecosystems to a level that allows for species recovery and conservation. (T)
-A1. The EU proposes legally binding targets for nature restoration to be established by 2021. (T)
-A2. Member States are not required to ensure the conservation trends and status of all protected habitats and species remain stable by 2030. (F)
-A3. The EU aims to decrease the overall use of chemical pesticides by 30% by 2030. (F)
-A4. The EU's proposed targets for nature restoration do not include any remediation of contaminated soil sites. (F)
-A1. The EU plans to reduce the overall use of chemical pesticides by 50% by 2030. (T)
-A2. The decline of genetic diversity in agriculture is not considered a concern by the EU's biodiversity strategy. (F)
-A3. The EU aims to ensure that at least 25% of agricultural land is under organic farming management by 2030. (T)
-A4. The EU's biodiversity strategy does not address the importance of maintaining traditional crop varieties. (F)
-A1. Efforts to protect soil fertility and reduce soil erosion are part of the EU's biodiversity strategy. (T)
-A2. Sustainable soil management practices are considered necessary for addressing soil degradation. (T)
-A3. The EU does not aim to increase the quantity of forests or improve their health and resilience. (F)
-A4. The EU Forest Strategy does not include a roadmap for planting additional trees by 2030. (F)
-A1. New sustainability criteria for forest biomass used for energy production will be introduced. (T)
-A2. The EU does not prioritize the restoration of marine ecosystems in its biodiversity strategy. (F)
-A3. Marine resources are not required to be harvested sustainably according to the EU's approach. (F)
-A4. The EU's biodiversity strategy does not aim to eliminate or reduce by-catch in marine ecosystems. (F)
-A1. The EU aims to restore at least 10,000 km of rivers into free-flowing rivers by 2030. (F)
-A2. Restoration efforts for freshwater ecosystems do not include the removal of obsolete barriers. (F)
-A3. The EU aims to restore at least 25,000 km of rivers into free-flowing rivers by 2030 through the removal of primarily obsolete barriers and the restoration of floodplains and wetlands. (T)
-A4. Restored and properly protected freshwater ecosystems will bring substantial health, social, and economic benefits to local communities. (T)
-A1. European cities with at least 20,000 inhabitants are not encouraged to develop ambitious Urban Greening Plans. (F)
-A2. The EU's biodiversity strategy does not prioritize the greening of urban areas. (F)
-A3. Urban Greening Plans aim to improve air quality and enhance the quality of life in urban areas. (T)
-A4. The EU's Urban Greening Plans aim to reward community action in greening initiatives. (T)
-A1. The EU aims to reduce the use of fertilizers by 50% by 2030. (T)
-A2. The EU Chemicals Strategy for Sustainability does not include measures to reduce pollution. (F)
-A3. Efforts to reduce pollution do not consider the impact on sensitive species and habitats. (F)
-A4. The EU's biodiversity strategy does not address the release of pollutants such as nutrients, chemical pesticides, and pharmaceuticals. (F)
-A1. The EU aims to decrease the number of Red List species threatened by invasive alien species by 50%. (T)
-A2. The implementation of the EU Invasive Alien Species Regulation is considered important for biodiversity conservation. (T)
-A3. The EU's approach to invasive alien species does not aim to reduce their impact on biodiversity. (F)
-A4. Invasive alien species are not considered a significant threat to biodiversity in the EU. (F)
-A1. The EU plans to establish a monitoring and review mechanism to assess progress and take corrective action if necessary. (T)
-A2. The EU does not prioritize the implementation and enforcement of EU environmental legislation. (F)
-A3. The EU does not aim to involve businesses in biodiversity conservation efforts. (F)
-A4. The EU does not consider investments, pricing, and taxation as important factors in biodiversity conservation. (F)
-A1. The EU aims to reduce the use of fertilizers by at least 20% by 2030, resulting in a reduction of nutrient losses. (T)
-A2. The EU will introduce a Zero Pollution Action Plan for Air, Water, and Soil to reduce the release of pollutants. (T)
-A3. The EU does not consider reducing pollution as a significant aspect of its biodiversity strategy. (F)
-A4. The EU's approach to addressing pollution does not include reducing the use of hazardous chemicals. (T)
+A1. Protecting by legislation of  a minimum of 30% of the EU’s land area and 30% of the EU’s Sea.
+A2.  Protection of at least 10% of the EU’s protected areas, including primary and old-growth forests.
+A3. Adequate management of all protected areas, by defining clear conservation and monitoring objectives and measures.
+A4.  The EU's biodiversity strategy does not prioritize the protection of primary and old-growth forests within its protected areas.
+A1. Protecting and restoring nature in the EU, by consolidating a coherent and effective network for protected areas  and restoring degraded habitats.
+A2. Enabling a new governance framework to ensure co-responsibility and co-ownership by all relevant actors including setting up new financial opportunities.
+A3. Adopting a global biodiversity agenda, to strengthen the contribution of the EU toward halting global biodiversity loss.
+A4. Adopting a global biodiversity agenda, to strengthen the contribution of the EU toward maximizing EU use of resources and consumption on other biodiversity-rich areas of the planet.
+A1. Closure of the biological resources loop and maximizing the use of residual streams from agriculture, food processing, and biobased industries, by reusing, recycling, or composting waste materials and converting them into useful products.
+A2. adopting green products or practices  based on biofertilizers, biopesticides, bio-based plastics, bioremediation, or microbiome innovations.
+A3. By using pesticides  (of chemical synthesis) in agriculture.
+A4. By introducing the  invasive species in these habitats.
+A1. by afforestation and reforestation because this action can reduce habitat loss and restore ecosystems.
+A2. Adopting eco-friendly approaches to restore degraded ecosystems and enhance biodiversity by applying biological  solutions.
+A3. Carbon sequestration in soil, water, and forests and its storage in harvested  products.
+A4. Maintaining the old industrial processes to obtain fossil-based products and raw materials.
+A1. The bioeconomy aims to close the loop of biological resources and maximize the use of residual streams from agriculture, food processing, and bio-based industries, by reusing, recycling, or composting waste materials and converting them into useful products.
+A2. Adopting bio-based products or practices, such as biofertilizers, biopesticides, bio-based plastics, bioremediation, or microbiome innovations, can contribute to reducing environmental pollution and health risks from the use of chemical fertilizers and pesticides.
+A3. By using pesticides (of chemical synthesis) in agriculture.
+A4. By introducing invasive species in these habitats.
+A1. Conflicts between agriculture and biodiversity conservation in Europe are decreasing due to the implementation of effective regulatory and market-based mechanisms.
+A2. Globalization, European policies, and climate change are potential drivers of emerging biodiversity conflicts in Europe.
+A3. The EU's Common Agricultural Policy (CAP) does not incorporate spatial planning in target setting and implementation to address conflicts between agriculture and biodiversity conservation.
+A4. The adoption of more intensive, mechanized, and chemically-based farming production techniques in Europe is reducing pressure on biodiversity.
+A1. The Commission will establish a monitoring and review mechanism to assess progress regularly and take corrective action if necessary.
+A2. Enforcement of the Birds and Habitats Directives will focus solely on completing the Natura 2000 network and managing all sites effectively.
+A3. The EU will help build a European Business for Biodiversity movement, integrating it into the European Climate Pact.
+A4. At least €20 billion annually will be allocated for spending on biodiversity, with a significant portion coming from the EU budget dedicated to climate action.
+A1. The Commission calls for European cities with at least 20,000 inhabitants to develop Urban Greening Plans as part of the EU's biodiversity strategy.
+A2. Greening urban and peri-urban areas is not considered a priority in the EU's efforts to conserve biodiversity.
+A3. There is no focus on rewarding community action in the Commission's approach to greening urban and peri-urban areas.
+A4. The EU's Urban Greening Plans aim to increase pollution in urban areas to encourage biodiversity.
+A1. The EU aims to reduce the release of pollutants such as nutrients, chemical pesticides, pharmaceuticals, hazardous chemicals, urban and industrial wastewater, litter, and plastics, to alleviate pressure on biodiversity.
+A2. The EU Chemicals Strategy for Sustainability will not include measures to reduce the use of fertilizers.
+A3. The EU's Zero Pollution Action Plan for Air, Water, and Soil does not target the reduction of fertilizer use.
+A4. The EU's efforts to reduce pollution do not consider the impact on sensitive species and habitats.
+A1. Restored and properly protected marine ecosystems are not expected to bring substantial health, social, and economic benefits to coastal communities.
+A2. Sustainable harvesting of marine resources is not considered essential in the EU's approach to restoring marine ecosystems.
+A3. There is no target for restoring freshwater ecosystems mentioned in the EU's biodiversity strategy.
+A4. The EU aims to eliminate or reduce the by-catch of species in marine ecosystems to a level that allows for species recovery and conservation.
+A1. The EU proposes legally binding targets for nature restoration to be established by 2021.
+A2. Member States are not required to ensure the conservation trends and status of all protected habitats and species remain stable by 2030.
+A3. The EU aims to decrease the overall use of chemical pesticides by 30% by 2030.
+A4. The EU's proposed targets for nature restoration do not include any remediation of contaminated soil sites.
+A1. The EU plans to reduce the overall use of chemical pesticides by 50% by 2030.
+A2. The decline of genetic diversity in agriculture is not considered a concern by the EU's biodiversity strategy.
+A3. The EU aims to ensure that at least 25% of agricultural land is under organic farming management by 2030.
+A4. The EU's biodiversity strategy does not address the importance of maintaining traditional crop varieties.
+A1. Efforts to protect soil fertility and reduce soil erosion are part of the EU's biodiversity strategy.
+A2. Sustainable soil management practices are considered necessary for addressing soil degradation.
+A3. The EU does not aim to increase the quantity of forests or improve their health and resilience.
+A4. The EU Forest Strategy does not include a roadmap for planting additional trees by 2030.
+A1. New sustainability criteria for forest biomass used for energy production will be introduced.
+A2. The EU does not prioritize the restoration of marine ecosystems in its biodiversity strategy.
+A3. Marine resources are not required to be harvested sustainably according to the EU's approach.
+A4. The EU's biodiversity strategy does not aim to eliminate or reduce by-catch in marine ecosystems.
+A1. The EU aims to restore at least 10,000 km of rivers into free-flowing rivers by 2030.
+A2. Restoration efforts for freshwater ecosystems do not include the removal of obsolete barriers.
+A3. The EU aims to restore at least 25,000 km of rivers into free-flowing rivers by 2030 through the removal of primarily obsolete barriers and the restoration of floodplains and wetlands.
+A4. Restored and properly protected freshwater ecosystems will bring substantial health, social, and economic benefits to local communities.
+A1. European cities with at least 20,000 inhabitants are not encouraged to develop ambitious Urban Greening Plans.
+A2. The EU's biodiversity strategy does not prioritize the greening of urban areas.
+A3. Urban Greening Plans aim to improve air quality and enhance the quality of life in urban areas.
+A4. The EU's Urban Greening Plans aim to reward community action in greening initiatives.
+A1. The EU aims to reduce the use of fertilizers by 50% by 2030.
+A2. The EU Chemicals Strategy for Sustainability does not include measures to reduce pollution.
+A3. Efforts to reduce pollution do not consider the impact on sensitive species and habitats.
+A4. The EU's biodiversity strategy does not address the release of pollutants such as nutrients, chemical pesticides, and pharmaceuticals.
+A1. The EU aims to decrease the number of Red List species threatened by invasive alien species by 50%.
+A2. The implementation of the EU Invasive Alien Species Regulation is considered important for biodiversity conservation.
+A3. The EU's approach to invasive alien species does not aim to reduce their impact on biodiversity.
+A4. Invasive alien species are not considered a significant threat to biodiversity in the EU.
+A1. The EU plans to establish a monitoring and review mechanism to assess progress and take corrective action if necessary.
+A2. The EU does not prioritize the implementation and enforcement of EU environmental legislation.
+A3. The EU does not aim to involve businesses in biodiversity conservation efforts.
+A4. The EU does not consider investments, pricing, and taxation as important factors in biodiversity conservation.
+A1. The EU aims to reduce the use of fertilizers by at least 20% by 2030, resulting in a reduction of nutrient losses.
+A2. The EU will introduce a Zero Pollution Action Plan for Air, Water, and Soil to reduce the release of pollutants.
+A3. The EU does not consider reducing pollution as a significant aspect of its biodiversity strategy.
+A4. The EU's approach to addressing pollution does not include reducing the use of hazardous chemicals.
